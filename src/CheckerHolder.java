@@ -1,3 +1,5 @@
+import com.sun.xml.internal.bind.v2.runtime.unmarshaller.XsiNilLoader;
+
 import java.util.HashMap;
 
 /**
@@ -11,6 +13,18 @@ public class CheckerHolder {
     }
 
     public SingleCell addSingleCell(SingleCell c){
-        checkHolderMap
+        checkHolderMap.put(c.getX()*10000+c.getY(),c);
+        return c;
     }
+
+    public SingleCell readSingleCell(int xLoc, int yLoc){
+        SingleCell result = (SingleCell) checkHolderMap.get(xLoc*1000+yLoc);
+        return result;
+    }
+
+    public void removeSingleCell(int xLoc, int yLoc){
+        checkHolderMap.remove(xLoc*1000+yLoc);
+    }
+
+
 }
