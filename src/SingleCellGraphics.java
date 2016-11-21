@@ -17,6 +17,7 @@ public class SingleCellGraphics extends GRect{
     private void setCellColor(boolean fillable){
         if (!fillable){
             this.setColor(Color.BLACK);
+
         }
     }
 }
