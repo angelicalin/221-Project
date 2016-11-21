@@ -20,8 +20,8 @@ public class SingleCellGraphics extends GCompound{
         GLabel labelUp = new GLabel(valueUp.toString());
         GLabel labelDown = new GLabel(valueDown.toString());
         this.add(squareCell);
-        this.add(labelDown,5,5);
-        this.add(labelUp,30,30);
+        this.add(labelDown,5,30);
+        this.add(labelUp,30,5);
         this.fillable = fillable;
         this.valueDown = valueDown;
         this.valueUp = valueUp;
@@ -35,7 +35,7 @@ public class SingleCellGraphics extends GCompound{
             singleCell.setFillColor(Color.BLACK);
         }
         else if (!fillable){
-            GLine seperationLine = new GLine(50,0,0,50);
+            GLine seperationLine = new GLine(0,0,50,50);
             this.add(seperationLine);
         }
     }
