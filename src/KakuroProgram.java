@@ -5,4 +5,5 @@ import acm.program.GraphicsProgram;
  */
 public class KakuroProgram extends GraphicsProgram {
 
+
 }
