@@ -2,6 +2,9 @@
 import acm.program.GraphicsProgram;
 import acm.graphics.GLabel;
 import acm.graphics.GObject;
+
+import java.awt.*;
+
 /**
  * Created by Leqi on 11/16/16.
  */
