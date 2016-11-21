@@ -13,8 +13,10 @@ public class SingleCellGraphics extends GCompound{
     int valueUp;
     int valueDown;
     boolean fillable;
+    GRect singleCell;
     public SingleCellGraphics(Integer valueUp, Integer valueDown, boolean fillable){
         GRect squareCell = new GRect(50,50);
+        this.singleCell = squareCell;
         GLabel labelUp = new GLabel(valueUp.toString());
         GLabel labelDown = new GLabel(valueDown.toString());
         this.add(squareCell);
@@ -24,13 +26,15 @@ public class SingleCellGraphics extends GCompound{
         this.valueDown = valueDown;
         this.valueUp = valueUp;
         setUpCell();
+
     }
 
     private void setUpCell(){
         if (!fillable&(valueUp==-1)&(valueDown==-1)){
-            this.setColor(Color.BLACK);
+            singleCell.setFilled(true);
+            singleCell.setFillColor(Color.BLACK);
         }
-        else if (fillable){
+        else if (!fillable){
             GLine seperationLine = new GLine(0,0,50,50);
             this.add(seperationLine);
         }
