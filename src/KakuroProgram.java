@@ -1,9 +1,5 @@
 
 import acm.program.GraphicsProgram;
-import acm.graphics.GLabel;
-import acm.graphics.GObject;
-
-import java.awt.*;
 
 /**
  * Created by Leqi on 11/16/16.
@@ -31,7 +27,8 @@ public class KakuroProgram extends GraphicsProgram {
                 {17,0,0,-1,17,0,0},
                 {-1,0,0,-1,-1,0,0}
         };
-        checkBoard = new CheckboardGraphics(Color.DARK_GRAY);
+
+        checkBoard = new CheckboardGraphics(gameInit);
 
 
         add(checkBoard, 75, 75);
