@@ -6,11 +6,13 @@ public class SingleCell {
     int x;
     int y;
     int value;
+    boolean fillable = false;
 
-    public SingleCell(int x, int y, int value){
+    public SingleCell(int x, int y, int value, boolean fillable){
         this.value = value;
         this.x=x;
         this.y=y;
+        this.fillable = fillable;
     }
 
     @Override
@@ -24,6 +26,10 @@ public class SingleCell {
         if (y != that.y) return false;
         return value == that.value;
 
+    }
+
+    public boolean isUnfillable(){
+        return fillable;
     }
 
 

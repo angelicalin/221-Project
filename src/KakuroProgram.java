@@ -2,6 +2,10 @@
 import acm.program.GraphicsProgram;
 import acm.graphics.GLabel;
 import acm.graphics.GObject;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+
 /**
  * Created by Leqi on 11/16/16.
  */
@@ -11,6 +15,23 @@ public class KakuroProgram extends GraphicsProgram {
 
     public void init(){
         setSize(CANVAS_WIDTH,CANVAS_HEIGHT);
+        int[][] gameInit = new int[][]{
+                {-1,-1,-1,-1,-1,-1,-1},
+                {-1,3,4,-1,-1,16,3},
+                {3,0,0,-1,4,0,0},
+                {-1,0,0,22,-1,0,0},
+                {9,0,0,0,7,0,0},
+                {-1,0,0,0,17,0,0},
+                {-1,-1,24,0,0,0,-1},
+                {-1,-1,22,0,0,0,-1},
+                {-1,23,0,0,0,-1,-1},
+                {-1,17,0,0,0,16,12},
+                {16,0,0,12,0,0,0},
+                {-1,0,0,-1,0,0,0},
+                {17,0,0,-1,17,0,0},
+                {-1,0,0,-1,-1,0,0}
+        };
 
-    }
+        }
 }
+
