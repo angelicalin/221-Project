@@ -9,5 +9,5 @@ public class CheckboardGraphics extends GCompound{
     public static final double BOARD_WIDTH = 500.0;
     public static final double BOARD_HEIGHT = 500.0;
 
-
 }
+
