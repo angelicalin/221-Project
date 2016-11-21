@@ -3,8 +3,8 @@
  */
 
 import acm.graphics.GCompound;
-
 import java.awt.*;
+
 
 
 public class CheckboardGraphics extends GCompound{
