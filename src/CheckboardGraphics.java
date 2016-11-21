@@ -3,8 +3,6 @@
  */
 
 import acm.graphics.GCompound;
-import acm.program.GraphicsProgram;
-import acm.util.*;
 
 
 public class CheckboardGraphics extends GCompound{
