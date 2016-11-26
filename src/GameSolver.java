@@ -6,9 +6,21 @@ import java.util.HashMap;
 public class GameSolver {
 
     HashMap gameCode;
-    public GameSolver(HashMap gameCode){
+    int [][] sums;
+
+
+    public GameSolver(HashMap gameCode, int[][] sums){
+
         this.gameCode = gameCode;
+        this.sums = sums;
+
     }
+
+
+
+
+
+
 
 
 }
