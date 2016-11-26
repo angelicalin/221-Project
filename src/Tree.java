@@ -7,8 +7,7 @@ import java.util.List;
 public class Tree {
     private TreeNode root;
 
-    public Tree(ArrayList FirstChildrenList){
+    public Tree(){
         root = new TreeNode(null, -1);
-
     }
 }
