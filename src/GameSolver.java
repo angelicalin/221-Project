@@ -20,7 +20,7 @@ public class GameSolver {
             for (int j = 0; j<7; j++) {
                 if (cell_values[i][j] == 0){
                     if(i%2 == 1){
-                        currentNodeValues = findAdjancentRowSum(i,j);
+                        findPossibleValuesforRowSum(i,j);
 
                     } else if (i%2==0) {
 
@@ -30,7 +30,7 @@ public class GameSolver {
         }
     }
 
-    public ArrayList<Integer> findAdjancentRowSum(int i, int j) {
+    public ArrayList<Integer> findPossibleValuesforRowSum(int i, int j) {
         int numberToAdd = 0;
         int forbiddenNumber = 0;
         ArrayList<Integer> possibleValues = new ArrayList<Integer>();
@@ -55,8 +55,6 @@ public class GameSolver {
         return possibleValues;
 
         }
-
-
     }
 
 
