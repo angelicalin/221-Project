@@ -13,6 +13,7 @@ public class GameSolver {
     public GameSolver(int[][] cell_values){
 
         this.cell_values = cell_values;
+        solver_tree = new Tree();
     }
 
     public void GameSolver(){
@@ -21,6 +22,8 @@ public class GameSolver {
                 if (cell_values[i][j] == 0){
                     if(i%2 == 1){
                         findPossibleValuesforRowSum(i,j);
+
+                    } else if (i % 2 == 0) {
                         findPossibleValuesforColumnSum(i,j);
                     } else if (i%2==0) {
 
@@ -30,55 +33,42 @@ public class GameSolver {
         }
     }
 
-    public ArrayList<Integer> findPossibleValuesforRowSum(int i, int j) {
+    private ArrayList<Integer> findPossibleValuesforRowSum(int i, int j) {
         int numberToAdd = 0;
-        int forbiddenNumber = 0;
-        ArrayList<Integer> possibleValues = new ArrayList<Integer>();
-
         while(cell_values[i][j] == 0){
             numberToAdd ++;
             j--;
         }
-
-        int rowSum = cell_values[i][j];
-
-        for (int k = 1; k< rowSum; k++){
-            possibleValues.add(k);
-        }
-
-        possibleValues.remove(forbiddenNumber);
-
+        ArrayList<Integer> possibleValues=findComposition(cell_values[i][j], numberToAdd);
         return possibleValues;
+    }
 
-        }
+
 
     private ArrayList<Integer> findPossibleValuesforColumnSum(int i, int j){
         int numberToAdd = 0;
-        int forbiddenNumber = 0;
-        ArrayList<Integer> possibleValues = new ArrayList<Integer>();
-
         while(cell_values[i][j] == 0){
             numberToAdd ++;
             i--;
         }
-
-        int columnSum = cell_values[i][j];
-
-
-        for (int k = 1; k< columnSum; k++){
-            possibleValues.add(k);
-        }
-
-        possibleValues.remove(forbiddenNumber);
-
+        ArrayList<Integer> possibleValues=findComposition(cell_values[i][j], numberToAdd);
         return possibleValues;
-
     }
+
+    private ArrayList<Integer> findComposition(int sum, int num){
+        ArrayList<Integer> result = new ArrayList<>(num);
+        Integer i = sum/num+1;
+        while (i+1<9 & (sum-i)>0){
+            result.add(i);
+        }
+        return result;
+    }
+
+
+
+
+
+
+
 
 }
-
-    }
-
-
-
-

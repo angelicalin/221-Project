@@ -5,6 +5,7 @@ import java.util.List;
 /**
  * Created by angelica on 11/26/16.
  */
+
 public class Tree {
     private TreeNode root;
     private HashMap<Integer, ArrayList<TreeNode>> nodesHolder;
