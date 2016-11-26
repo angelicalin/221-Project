@@ -11,7 +11,7 @@ public class Tree {
 
     public Tree(){
         root = new TreeNode(null, -1);
-        nodesHolder = new HashMap(49);
+        nodesHolder = new HashMap<>(49);
     }
 
     public TreeNode getRoot (){
@@ -26,7 +26,7 @@ public class Tree {
             nodesHolder.put(xLocOfChild*100+yLocOfChild, arrayToChange);
         }
         else{
-            ArrayList<TreeNode> newArray = new ArrayList();
+            ArrayList<TreeNode> newArray = new ArrayList<> ();
             newArray.add(childNode);
             nodesHolder.put(xLocOfChild*100+yLocOfChild, newArray);
         }
