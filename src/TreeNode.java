@@ -33,4 +33,8 @@ public class TreeNode {
     public TreeNode getChildofIndex(int i){
         return children.get(i);
     }
+
+    public void removeChild(TreeNode childNode){
+        children.remove(childNode);
+    }
 }
