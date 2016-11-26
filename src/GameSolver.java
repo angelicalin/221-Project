@@ -11,7 +11,6 @@ public class GameSolver {
 
 
     public GameSolver(int[][] cell_values){
-
         this.cell_values = cell_values;
         solver_tree = new Tree();
     }
@@ -22,11 +21,8 @@ public class GameSolver {
                 if (cell_values[i][j] == 0){
                     if(i%2 == 1){
                         findPossibleValuesforRowSum(i,j);
-
                     } else if (i % 2 == 0) {
                         findPossibleValuesforColumnSum(i,j);
-                    } else if (i%2==0) {
-
                     }
                 }
             }
