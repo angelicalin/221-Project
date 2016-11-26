@@ -9,7 +9,6 @@ public class GameSolver {
     Tree solver_tree;
     ArrayList<Integer> currentNodeValues = new ArrayList<Integer>();
 
-
     public GameSolver(int[][] cell_values){
         this.cell_values = cell_values;
         solver_tree = new Tree();
@@ -54,17 +53,10 @@ public class GameSolver {
     private ArrayList<Integer> findComposition(int sum, int num){
         ArrayList<Integer> result = new ArrayList<>(num);
         Integer i = sum/num+1;
-        while (i+1<9 & (sum-i)>0){
+        while (i<9 & (sum-i)>0 & i<sum){
             result.add(i);
+            i++;
         }
         return result;
     }
-
-
-
-
-
-
-
-
 }
