@@ -10,4 +10,8 @@ public class Tree {
     public Tree(){
         root = new TreeNode(null, -1);
     }
+
+    public TreeNode getRoot (){
+        return root;
+    }
 }
