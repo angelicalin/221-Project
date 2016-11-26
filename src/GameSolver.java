@@ -13,7 +13,6 @@ public class GameSolver {
 
         this.gameCode = gameCode;
         this.sums = sums;
-
     }
 
 

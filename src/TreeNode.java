@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -7,7 +8,7 @@ import java.util.List;
 public class TreeNode {
     TreeNode parent;
     int value;
-    List<TreeNode> children = new ArrayList();
+    List<TreeNode> children = new ArrayList<>();
     public TreeNode(TreeNode parent, int value){
         this.parent = parent;
         this.value = value;
