@@ -13,7 +13,7 @@ public class TreeNode {
         this.value = value;
     }
 
-    public void addChildren (TreeNode childNode){
+    public void addChild (TreeNode childNode){
         children.add(childNode);
     }
 
@@ -29,5 +29,7 @@ public class TreeNode {
         return children;
     }
 
-    public TreeNode getChildofIndex(int i)
+    public TreeNode getChildofIndex(int i){
+        return children.get(i);
+    }
 }
