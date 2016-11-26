@@ -15,7 +15,7 @@ public class GameSolver {
         solver_tree = new Tree();
     }
 
-    public void GameSolver(){
+    public void gameSolve(){
         for (int i = 0; i <14; i ++){
             for (int j = 0; j<7; j++) {
                 if (cell_values[i][j] == 0){
