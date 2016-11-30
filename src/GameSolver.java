@@ -56,28 +56,6 @@ public class GameSolver {
 
         }
 
-    private ArrayList<Integer> findPossibleValuesforColumnSum(int i, int j){
-        int numberToAdd = 0;
-        int forbiddenNumber = 0;
-        ArrayList<Integer> possibleValues = new ArrayList<Integer>();
-
-        while(cell_values[i][j] == 0){
-            numberToAdd ++;
-            i--;
-        }
-
-        int columnSum = cell_values[i][j];
-
-
-        for (int k = 1; k< columnSum; k++){
-            possibleValues.add(k);
-        }
-
-        possibleValues.remove(forbiddenNumber);
-
-        return possibleValues;
-
-    }
 
     private ArrayList<Integer> findComposition(int sum, int num){
         ArrayList<Integer> result = new ArrayList<>(num);
