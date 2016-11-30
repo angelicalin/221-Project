@@ -1,9 +1,9 @@
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 
 /**
  * Created by angelica on 11/25/16.
+ * This treenode constitue the Tree class.
  */
 public class TreeNode {
     TreeNode parent;

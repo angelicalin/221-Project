@@ -8,6 +8,7 @@ public class KakuroProgram extends GraphicsProgram {
     private final int CANVAS_WIDTH = 500;
     private final int CANVAS_HEIGHT = 500;
     private CheckboardGraphics checkBoard;
+    private GameSolver gameSolver;
 
     public void init(){
         setSize(CANVAS_WIDTH,CANVAS_HEIGHT);
@@ -32,6 +33,8 @@ public class KakuroProgram extends GraphicsProgram {
 
 
         add(checkBoard, 75, 75);
+        gameSolver = new GameSolver(gameInit);
+        gameSolver.solveGame();
 
     }
 }

@@ -8,66 +8,90 @@ public class GameSolver {
     int [][] cell_values;
     Tree solver_tree;
     ArrayList<Integer> currentNodeValues = new ArrayList<Integer>();
+    int currentLevel = 0;
 
 
-    public GameSolver(int[][] cell_values, Tree solver_tree){
+    public GameSolver(int[][] cell_values){
 
         this.cell_values = cell_values;
-        this.solver_tree = solver_tree;
+        this.solver_tree = new Tree();
+
     }
 
-    public void GameSolver(){
+    public void solveGame(){
 
         for (int i = 0; i <14; i +=2){
             for (int j = 0; j<7; j++) {
                 if (cell_values[i][j] == 0){
                     ArrayList<Integer> possibleValues = findPossibleValues(i,j);
+                    addValuestoTree(possibleValues,currentLevel);
+                    System.out.println("row" +i+"c"+j);
+                    currentLevel++;
                     }
             }
         }
     }
 
     private ArrayList<Integer> findPossibleValues(int rowIndex, int columnIndex){
-        ArrayList <Integer> possibleRowValues = findPossibleValueFromLine(rowIndex,columnIndex);
-        ArrayList <Integer> possibleColumnValues = findPossibleValueFromLine(columnIndex,rowIndex);
-        possibleColumnValues.retainAll(possibleRowValues);
-        ArrayList<Integer> possibleValues = possibleColumnValues;
+        ArrayList <Integer> possibleRowValues = findPossibleValueFromRowSum(rowIndex,columnIndex);
+        ArrayList <Integer> possibleColumnValues = findPossibleValueFromColumnSum(rowIndex,columnIndex);
+        ArrayList<Integer> possibleValues = new ArrayList<>();
+        for (int i = 0; i<possibleColumnValues.size();i++){
+            for (int j=0;j<possibleRowValues.size();j++){
+                if (possibleColumnValues.get(i)==possibleRowValues.get(j)){
+                    possibleValues.add(possibleColumnValues.get(i));
+                }
+            }
+        }
         return possibleValues;
         }
 
-    private ArrayList<Integer> findPossibleValueFromLine(int fixedLine, int changingLine) {
-        int numberToAdd = 0;
-        int forbiddenNumber = 0;
-        ArrayList<Integer> possibleValues = new ArrayList<Integer>();
+    private ArrayList<Integer> findPossibleValueFromColumnSum(int rowIndex, int columnIndex) {
+        Integer numberToAdd = 0;
 
-        while(cell_values[fixedLine][changingLine] == 0){
+        while(cell_values[rowIndex][columnIndex] == 0){
             numberToAdd ++;
-            changingLine--;
+            rowIndex--;
         }
+        Integer sum = cell_values[rowIndex][columnIndex];
+        return findComposition(sum,numberToAdd);
 
-        int sum = cell_values[fixedLine][changingLine];
+    }
 
-        for (int k = 1; k< sum; k++){
-            possibleValues.add(k);
+
+    private ArrayList<Integer> findPossibleValueFromRowSum(int rowIndex, int columnIndex) {
+        Integer numberToAdd = 0;
+
+        while(cell_values[rowIndex][columnIndex] == 0){
+            numberToAdd ++;
+            columnIndex--;
         }
-
-        possibleValues.remove(forbiddenNumber);
+        Integer sum = cell_values[rowIndex][columnIndex];
         return findComposition(sum,numberToAdd);
 
         }
 
 
-    private ArrayList<Integer> findComposition(int sum, int num){
+    private ArrayList<Integer> findComposition(Integer sum, Integer num){
         ArrayList<Integer> result = new ArrayList<>(num);
-        Integer i = sum/num+1;
-        while (i+1<9 & (sum-i)>0){
-            result.add(i);
-        }
+            for (int i =0; (i<sum&i<10);i++){
+                result.add(i);
+            }
+
         return result;
     }
 
-    private void AddValuestoTree(TreeNode possibleValues){
-        solver_tree.addChild();
+    private void addValuestoTree(ArrayList<Integer> possibleValues, int level){
+        ArrayList<TreeNode> parentsToAdd = solver_tree.getNodeAt(level);
+        System.out.println(possibleValues.size());
+        for(int j = 0; j < parentsToAdd.size();j++){
+            for (int i = 0; i < possibleValues.size(); i ++){
+ //               System.out.println("-_-");
+                TreeNode parent = parentsToAdd.get(j);
+                TreeNode childToAdd= new TreeNode(parent,possibleValues.get(i));
+                solver_tree.addChild(parent,childToAdd,(level+1));
+            }
+        }
     }
 
 }
