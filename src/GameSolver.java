@@ -22,7 +22,6 @@ public class GameSolver {
                     findPossibleValuesforRowSum(i,j);
                     findPossibleValuesforColumnSum(i,j);
                     }
-                }
             }
         }
     }
@@ -74,7 +73,6 @@ public class GameSolver {
 
 }
 
-    }
 
 
 
