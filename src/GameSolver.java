@@ -26,6 +26,7 @@ public class GameSolver {
     }
 
     public ArrayList<Integer> findPossibleValues(int i, int j){
+        ArrayList <Integer> possibleRow = new ArrayList<>();
 
     }
 
