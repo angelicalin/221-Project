@@ -25,11 +25,12 @@ public class GameSolver {
                 if (cell_values[i][j] == 0){
                     ArrayList<Integer> possibleValues = findPossibleValues(i,j);
                     addValuestoTree(possibleValues,currentLevel);
-                    System.out.println("row" +i+"c"+j);
+            //        System.out.println("row" +i+"c"+j);
                     currentLevel++;
                     }
             }
         }
+        solver_tree.traverseTree();
     }
 
     private ArrayList<Integer> findPossibleValues(int rowIndex, int columnIndex){
@@ -60,13 +61,16 @@ public class GameSolver {
 
 
     private ArrayList<Integer> findPossibleValueFromRowSum(int rowIndex, int columnIndex) {
-        Integer numberToAdd = 0;
+        Integer numberToAdd = 1;
+
 
         while(cell_values[rowIndex][columnIndex] == 0){
             numberToAdd ++;
             columnIndex--;
         }
         Integer sum = cell_values[rowIndex][columnIndex];
+
+
         return findComposition(sum,numberToAdd);
 
         }
@@ -78,20 +82,19 @@ public class GameSolver {
                 result.add(i);
             }
 
+
         return result;
     }
 
     private void addValuestoTree(ArrayList<Integer> possibleValues, int level){
-        ArrayList<TreeNode> parentsToAdd = solver_tree.getNodeAt(level);
-        System.out.println(possibleValues.size());
-        for(int j = 0; j < parentsToAdd.size();j++){
+        TreeNode parentsToAdd = solver_tree.getNodeAt(level).get(0);
+   //     System.out.println(possibleValues.size());
+
             for (int i = 0; i < possibleValues.size(); i ++){
  //               System.out.println("-_-");
-                TreeNode parent = parentsToAdd.get(j);
-                TreeNode childToAdd= new TreeNode(parent,possibleValues.get(i));
-                solver_tree.addChild(parent,childToAdd,(level+1));
+                TreeNode childToAdd= new TreeNode(parentsToAdd,possibleValues.get(i));
+                solver_tree.addChild(parentsToAdd,childToAdd,(level+1));
             }
-        }
     }
 
 }

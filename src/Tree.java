@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by angelica on 11/26/16.
@@ -73,5 +74,15 @@ public class Tree {
 //        nodesHolder.put(xLocofNodetoRemove*100+yLocofNodetoRemove,arrayToChange);
 //
 //    }
+    public void traverseTree(){
+        for (Map.Entry<Integer, ArrayList<TreeNode>> entry: nodesHolder.entrySet()){
+            String toPrint = "Level" + entry.getKey()+" {";
+            for(int i =0;i<entry.getValue().size();i++){
+                toPrint = toPrint + entry.getValue().get(i).getValue() + ", ";
+            }
+            toPrint+="}";
+            System.out.println(toPrint);
+        }
 
+    }
 }
