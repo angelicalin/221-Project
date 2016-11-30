@@ -19,11 +19,14 @@ public class GameSolver {
         for (int i = 0; i <14; i +=2){
             for (int j = 0; j<7; j++) {
                 if (cell_values[i][j] == 0){
-                    findPossibleValuesforRowSum(i,j);
-                    findPossibleValuesforColumnSum(i,j);
+                    ArrayList possibleRowSum = findPossibleValuesforRowSum(i,j);
                     }
             }
         }
+    }
+
+    public ArrayList<Integer> findPossibleValues(int i, int j){
+
     }
 
     public ArrayList<Integer> findPossibleValuesforRowSum(int i, int j) {
@@ -44,7 +47,6 @@ public class GameSolver {
 
         possibleValues.remove(forbiddenNumber);
 
-        return possibleValues;
 
         }
 
@@ -69,6 +71,15 @@ public class GameSolver {
 
         return possibleValues;
 
+    }
+
+    private ArrayList<Integer> findComposition(int sum, int num){
+        ArrayList<Integer> result = new ArrayList<>(num);
+        Integer i = sum/num+1;
+        while (i+1<9 & (sum-i)>0){
+            result.add(i);
+        }
+        return result;
     }
 
 }
