@@ -43,14 +43,14 @@ public class GameSolver {
             changingLine--;
         }
 
-        int rowSum = cell_values[fixedLine][changingLine];
+        int sum = cell_values[fixedLine][changingLine];
 
-        for (int k = 1; k< rowSum; k++){
+        for (int k = 1; k< sum; k++){
             possibleValues.add(k);
         }
 
         possibleValues.remove(forbiddenNumber);
-        return findComposition(rowSum,numberToAdd);
+        return findComposition(sum,numberToAdd);
 
         }
 
