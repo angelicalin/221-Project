@@ -1,4 +1,4 @@
-import java.util.ArrayList;
+import java.util.*;
 
 /**
  * Created by angelica on 11/20/16.
@@ -7,8 +7,10 @@ public class GameSolver {
 
     int [][] cell_values;
     Tree solver_tree;
-    ArrayList<Integer> currentNodeValues = new ArrayList<Integer>();
+    ArrayList<Integer> currentNodeValues = new ArrayList<>();
     int currentLevel = 0;
+    ArrayList<SolutionCell> rowSums = new ArrayList<>();
+    TreeMap<Integer,SolutionCell> columnSums = new TreeMap <>();
 
 
     public GameSolver(int[][] cell_values){
@@ -31,6 +33,15 @@ public class GameSolver {
             }
         }
         solver_tree.traverseTree();
+        for (int x = 0; x<rowSums.size();x++){
+            String rowSumString = "row " +rowSums.get(x).getX() + " column " + rowSums.get(x).getY() + " is value " +rowSums.get(x).getValue()+ " to Add " + rowSums.get(x).getNumToAdd() + "numbers";
+            System.out.println(rowSumString);
+            System.out.println("yeah~");
+        }
+        for (Map.Entry<Integer, SolutionCell> entry: columnSums.entrySet()){
+            String columnSum = "row " +entry.getValue().getX() +" column " + entry.getValue().getY()+ " is value " +entry.getValue().getValue()+ " to Add " + entry.getValue().getNumToAdd() + "numbers";
+            System.out.println(columnSum);
+        }
     }
 
     private ArrayList<Integer> findPossibleValues(int rowIndex, int columnIndex){
@@ -49,20 +60,27 @@ public class GameSolver {
 
     private ArrayList<Integer> findPossibleValueFromColumnSum(int rowIndex, int columnIndex) {
         Integer numberToAdd = 0;
-
         while(cell_values[rowIndex][columnIndex] == 0){
             numberToAdd ++;
             rowIndex--;
         }
         Integer sum = cell_values[rowIndex][columnIndex];
-        return findComposition(sum,numberToAdd);
+        if (numberToAdd==1){
+            SolutionCell solutionCell = new SolutionCell(rowIndex, columnIndex, sum,false);
+            columnSums.put(rowIndex * 100+columnIndex, solutionCell);
+        }
+        else {
+            SolutionCell solutionCell = columnSums.get(rowIndex*100+columnIndex);
+            solutionCell.incrementNumToAdd();
+            columnSums.put(rowIndex * 100+columnIndex,solutionCell);
+        }
+        return findComposition(sum);
 
     }
 
 
     private ArrayList<Integer> findPossibleValueFromRowSum(int rowIndex, int columnIndex) {
-        Integer numberToAdd = 1;
-
+        Integer numberToAdd = 0;
 
         while(cell_values[rowIndex][columnIndex] == 0){
             numberToAdd ++;
@@ -70,15 +88,22 @@ public class GameSolver {
         }
         Integer sum = cell_values[rowIndex][columnIndex];
 
+        if (numberToAdd==1){
+            SolutionCell solutionCell = new SolutionCell(rowIndex, columnIndex, sum,true);
+            rowSums.add(solutionCell);
+        }
+        else {
+            rowSums.get(rowSums.size()-1).incrementNumToAdd();
+        }
 
-        return findComposition(sum,numberToAdd);
+        return findComposition(sum);
 
         }
 
 
-    private ArrayList<Integer> findComposition(Integer sum, Integer num){
-        ArrayList<Integer> result = new ArrayList<>(num);
-            for (int i =0; (i<sum&i<10);i++){
+    private ArrayList<Integer> findComposition(Integer sum){
+        ArrayList<Integer> result = new ArrayList<>();
+            for (int i =1; (i<sum&i<10);i++){
                 result.add(i);
             }
 
@@ -95,6 +120,10 @@ public class GameSolver {
                 TreeNode childToAdd= new TreeNode(parentsToAdd,possibleValues.get(i));
                 solver_tree.addChild(parentsToAdd,childToAdd,(level+1));
             }
+    }
+
+    private void fillInSolution (){
+
     }
 
 }
