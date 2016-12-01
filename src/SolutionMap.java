@@ -6,14 +6,14 @@ import java.util.Map;
  * Created by angelica on 11/26/16.
  */
 
-public class Tree {
+public class SolutionMap {
     private TreeNode root;
     /*
     This hashmap tracks the location of each treenode.
      */
     private HashMap<Integer, ArrayList<TreeNode>> nodesHolder;
 
-    public Tree(){
+    public SolutionMap(){
         root = new TreeNode(null, -1);
         nodesHolder = new HashMap<>(49);
         init();

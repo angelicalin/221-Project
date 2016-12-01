@@ -6,7 +6,7 @@ import java.util.*;
 public class GameSolver {
 
     int [][] cell_values;
-    Tree solver_tree;
+    SolutionMap solutionMap;
     TreeNode currentNode;
   //  int currentLevel = 0;
     ArrayList<SolutionCell> rowSums = new ArrayList<>();
@@ -16,9 +16,13 @@ public class GameSolver {
     public GameSolver(int[][] cell_values){
 
         this.cell_values = cell_values;
-        this.solver_tree = new Tree();
-        this.currentNode = solver_tree.getRoot();
+        this.solutionMap = new SolutionMap();
+        this.currentNode = solutionMap.getRoot();
     }
+
+    /**
+     * This method runs the solution to the game.
+     */
 
     public void analyizeGameInit(){
 
@@ -32,10 +36,10 @@ public class GameSolver {
                     }
             }
         }
-        solver_tree.traverseTree();
+        solutionMap.traverseTree();
         pruneTreeOnRow();
         pruneTreeOnColumn();
-        solver_tree.traverseTree();
+        solutionMap.traverseTree();
 //        for (int x = 0; x<rowSums.size();x++){
 //            String rowSumString = "row " +rowSums.get(x).getX() + " column " + rowSums.get(x).getY() + " is value " +rowSums.get(x).getValue()+ " to Add " + rowSums.get(x).getNumToAdd() + "numbers";
 //            System.out.println(rowSumString);
@@ -46,6 +50,13 @@ public class GameSolver {
 //            System.out.println(columnSum);
 //        }
     }
+
+    /**
+     * Find all possible values for each cell in the game.
+     * @param rowIndex: the row index of a cell.
+     * @param columnIndex: the column index of a cell.
+     * @return An array list of integers that contain all possible values for a cell
+     */
 
     private ArrayList<Integer> findPossibleValues(int rowIndex, int columnIndex){
         ArrayList <Integer> possibleRowValues = findPossibleValueFromRowSum(rowIndex,columnIndex);
@@ -60,6 +71,14 @@ public class GameSolver {
         }
         return possibleValues;
         }
+
+    /**
+     * Find possible values, according the the column sum the single cell corresponds to.
+     * @param rowIndex the row index of a cell.
+     * @param columnIndex the column index of a cell.
+     * @return An array list of integers that contain possible values for a cell from column sum
+     */
+
 
     private ArrayList<Integer> findPossibleValueFromColumnSum(int rowIndex, int columnIndex) {
         Integer numberToAdd = 0;
@@ -81,6 +100,12 @@ public class GameSolver {
 
     }
 
+    /**
+     * Find possible values, according the the row sum the single cell corresponds to.
+     * @param rowIndex the row index of a cell.
+     * @param columnIndex the column index of a cell.
+     * @return An array list of integers that contain possible values for a cell from row sum
+     */
 
     private ArrayList<Integer> findPossibleValueFromRowSum(int rowIndex, int columnIndex) {
         Integer numberToAdd = 0;
@@ -104,6 +129,12 @@ public class GameSolver {
         }
 
 
+    /**
+     *
+     * @param sum
+     * @return
+     */
+
     private ArrayList<Integer> findComposition(Integer sum){
         ArrayList<Integer> result = new ArrayList<>();
             for (int i =1; (i<sum&i<10);i++){
@@ -115,14 +146,14 @@ public class GameSolver {
     }
 
     private void addValuestoTree(ArrayList<Integer> possibleValues, int xLoc, int yLoc){
-     //   TreeNode parentsToAdd = solver_tree.getNodeAt(level).get(0);
+     //   TreeNode parentsToAdd = solverMap.getNodeAt(level).get(0);
         TreeNode parentsToAdd = currentNode;
    //     System.out.println(possibleValues.size());
 
             for (int i = 0; i < possibleValues.size(); i ++){
  //               System.out.println("-_-");
                 TreeNode childToAdd= new TreeNode(parentsToAdd,possibleValues.get(i));
-                solver_tree.addChild(parentsToAdd,childToAdd,xLoc,yLoc);
+                solutionMap.addChild(parentsToAdd,childToAdd,xLoc,yLoc);
             }
         currentNode = parentsToAdd.getChildofIndex(0);
     }
@@ -138,7 +169,7 @@ public class GameSolver {
                 int numberToRemove = singleRowSum.getValue() / numToAdd;
                 System.out.println(numberToRemove);
                 for(int j =1; j <= numToAdd; j++){
-                    solver_tree.removeChildofValue(numberToRemove,xLocofRowSum,yLocofRowSum+j);
+                    solutionMap.removeChildofValue(numberToRemove,xLocofRowSum,yLocofRowSum+j);
                 }
             }
 
@@ -156,7 +187,7 @@ public class GameSolver {
                 int numberToRemove = singleColumnSum.getValue() / numToAdd;
   //              System.out.println(numberToRemove);
                 for(int j =1; j <= numToAdd; j +=2){
-                    solver_tree.removeChildofValue(numberToRemove,xLocofRowSum+j,yLocofRowSum);
+                    solutionMap.removeChildofValue(numberToRemove,xLocofRowSum+j,yLocofRowSum);
                 }
             }
 

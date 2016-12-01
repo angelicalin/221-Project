@@ -10,6 +10,10 @@ public class KakuroProgram extends GraphicsProgram {
     private CheckboardGraphics checkBoard;
     private GameSolver gameSolver;
 
+
+    /**
+     * This method runs the entire program.
+     */
     public void init(){
         setSize(CANVAS_WIDTH,CANVAS_HEIGHT);
         int[][] gameInit = new int[][]{
