@@ -84,6 +84,20 @@ public class Tree {
             toPrint+="}";
             System.out.println(toPrint);
         }
+    }
 
+    public void removeChildofValue (TreeNode parentNode, int childValue, int xLocofChild, int yLoxofChild){
+        ArrayList<TreeNode> childrenList = parentNode.getChildrenList();
+        ArrayList<TreeNode> copyOfChildrenList = parentNode.getChildrenList();
+        for (int i=0; i<childrenList.size();i++){
+            TreeNode child = childrenList.get(i);
+            if (child.getValue() == childValue){
+                parentNode.removeChild(child);
+                System.out.println(copyOfChildrenList.size());
+                copyOfChildrenList.remove(child);
+                System.out.println(copyOfChildrenList.size()+"ha");
+            }
+        }
+        nodesHolder.put(xLocofChild*100+yLoxofChild, copyOfChildrenList);
     }
 }

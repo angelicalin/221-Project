@@ -20,7 +20,7 @@ public class GameSolver {
         this.currentNode = solver_tree.getRoot();
     }
 
-    public void solveGame(){
+    public void analyizeGameInit(){
 
         for (int i = 0; i <14; i +=2){
             for (int j = 0; j<7; j++) {
@@ -33,15 +33,17 @@ public class GameSolver {
             }
         }
         solver_tree.traverseTree();
-        for (int x = 0; x<rowSums.size();x++){
-            String rowSumString = "row " +rowSums.get(x).getX() + " column " + rowSums.get(x).getY() + " is value " +rowSums.get(x).getValue()+ " to Add " + rowSums.get(x).getNumToAdd() + "numbers";
-            System.out.println(rowSumString);
-            System.out.println("yeah~");
-        }
-        for (Map.Entry<Integer, SolutionCell> entry: columnSums.entrySet()){
-            String columnSum = "row " +entry.getValue().getX() +" column " + entry.getValue().getY()+ " is value " +entry.getValue().getValue()+ " to Add " + entry.getValue().getNumToAdd() + "numbers";
-            System.out.println(columnSum);
-        }
+        pruneTreeOnRow();
+        solver_tree.traverseTree();
+//        for (int x = 0; x<rowSums.size();x++){
+//            String rowSumString = "row " +rowSums.get(x).getX() + " column " + rowSums.get(x).getY() + " is value " +rowSums.get(x).getValue()+ " to Add " + rowSums.get(x).getNumToAdd() + "numbers";
+//            System.out.println(rowSumString);
+//            System.out.println("yeah~");
+//        }
+//        for (Map.Entry<Integer, SolutionCell> entry: columnSums.entrySet()){
+//            String columnSum = "row " +entry.getValue().getX() +" column " + entry.getValue().getY()+ " is value " +entry.getValue().getValue()+ " to Add " + entry.getValue().getNumToAdd() + "numbers";
+//            System.out.println(columnSum);
+//        }
     }
 
     private ArrayList<Integer> findPossibleValues(int rowIndex, int columnIndex){
@@ -124,8 +126,24 @@ public class GameSolver {
         currentNode = parentsToAdd.getChildofIndex(0);
     }
 
-    private void fillInSolution (){
+    private void pruneTreeOnRow(){
+        for (int i = 0; i<rowSums.size();i++){
+            SolutionCell singleRowSum = rowSums.get(i);
+            int xLocofRowSum = singleRowSum.getX();
+            int yLocofRowSum = singleRowSum.getY();
+            int numToAdd = singleRowSum.getNumToAdd();
+            if (singleRowSum.getValue()%numToAdd == 0) {
 
+                int numberToRemove = singleRowSum.getValue() / numToAdd;
+                System.out.println(numberToRemove);
+                for(int j =1; j <= numToAdd; j++){
+                    ArrayList<TreeNode> treeNodeArrayList = solver_tree.getNodeAt(xLocofRowSum,yLocofRowSum + j);
+                    TreeNode parent = treeNodeArrayList.get(0);
+                    solver_tree.removeChildofValue(parent,numberToRemove,xLocofRowSum,yLocofRowSum+j);
+                }
+            }
+
+        }
     }
 
 }

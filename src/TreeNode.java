@@ -8,7 +8,7 @@ import java.util.List;
 public class TreeNode {
     TreeNode parent;
     int value;
-    List<TreeNode> children = new ArrayList<>();
+    ArrayList<TreeNode> children = new ArrayList<>();
     public TreeNode(TreeNode parent, int value){
         this.parent = parent;
         this.value = value;
@@ -26,7 +26,7 @@ public class TreeNode {
         return value;
     }
 
-    public List<TreeNode> getChildrenList() {
+    public ArrayList<TreeNode> getChildrenList() {
         return children;
     }
 
