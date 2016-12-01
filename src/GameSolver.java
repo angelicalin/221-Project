@@ -34,6 +34,7 @@ public class GameSolver {
         }
         solver_tree.traverseTree();
         pruneTreeOnRow();
+        pruneTreeOnColumn();
         solver_tree.traverseTree();
 //        for (int x = 0; x<rowSums.size();x++){
 //            String rowSumString = "row " +rowSums.get(x).getX() + " column " + rowSums.get(x).getY() + " is value " +rowSums.get(x).getValue()+ " to Add " + rowSums.get(x).getNumToAdd() + "numbers";
@@ -137,9 +138,25 @@ public class GameSolver {
                 int numberToRemove = singleRowSum.getValue() / numToAdd;
                 System.out.println(numberToRemove);
                 for(int j =1; j <= numToAdd; j++){
-                    ArrayList<TreeNode> treeNodeArrayList = solver_tree.getNodeAt(xLocofRowSum,yLocofRowSum + j);
-                    TreeNode parent = treeNodeArrayList.get(0);
-                    solver_tree.removeChildofValue(parent,numberToRemove,xLocofRowSum,yLocofRowSum+j);
+                    solver_tree.removeChildofValue(numberToRemove,xLocofRowSum,yLocofRowSum+j);
+                }
+            }
+
+        }
+    }
+    private void pruneTreeOnColumn(){
+        for (Map.Entry<Integer, SolutionCell> entry: columnSums.entrySet()){
+//            String columnSum = "row " +entry.getValue().getX() +" column " + entry.getValue().getY()+ " is value " +entry.getValue().getValue()+ " to Add " + entry.getValue().getNumToAdd() + "numbers";
+//            System.out.println(columnSum);
+            SolutionCell singleColumnSum = entry.getValue();
+            int xLocofRowSum = singleColumnSum.getX();
+            int yLocofRowSum = singleColumnSum.getY();
+            int numToAdd = singleColumnSum.getNumToAdd();
+            if (singleColumnSum.getValue()%numToAdd == 0) {
+                int numberToRemove = singleColumnSum.getValue() / numToAdd;
+  //              System.out.println(numberToRemove);
+                for(int j =1; j <= numToAdd; j +=2){
+                    solver_tree.removeChildofValue(numberToRemove,xLocofRowSum+j,yLocofRowSum);
                 }
             }
 

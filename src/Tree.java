@@ -86,18 +86,19 @@ public class Tree {
         }
     }
 
-    public void removeChildofValue (TreeNode parentNode, int childValue, int xLocofChild, int yLoxofChild){
-        ArrayList<TreeNode> childrenList = parentNode.getChildrenList();
-        ArrayList<TreeNode> copyOfChildrenList = parentNode.getChildrenList();
+    public void removeChildofValue (int childValue, int xLocofChild, int yLocofChild){
+        ArrayList<TreeNode> childrenList = nodesHolder.get(xLocofChild*100+yLocofChild);
+        ArrayList<TreeNode> copyOfChildrenList = childrenList;
+        System.out.println(childrenList.size());
         for (int i=0; i<childrenList.size();i++){
             TreeNode child = childrenList.get(i);
             if (child.getValue() == childValue){
-                parentNode.removeChild(child);
-                System.out.println(copyOfChildrenList.size());
-                copyOfChildrenList.remove(child);
-                System.out.println(copyOfChildrenList.size()+"ha");
+                try {
+                    copyOfChildrenList.remove(child);
+                }
+                catch (NullPointerException e){}
             }
         }
-        nodesHolder.put(xLocofChild*100+yLoxofChild, copyOfChildrenList);
+        nodesHolder.put(xLocofChild*100+yLocofChild, copyOfChildrenList);
     }
 }
