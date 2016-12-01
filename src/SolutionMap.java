@@ -14,24 +14,24 @@ public class SolutionMap {
     private HashMap<Integer, ArrayList<TreeNode>> nodesHolder;
 
     public SolutionMap(){
-        root = new TreeNode(null, -1);
+    //    root = new TreeNode(null, -1);
         nodesHolder = new HashMap<>(49);
-        init();
+     //   init();
     }
 
-    private void init(){
-        ArrayList<TreeNode> rootArray = new ArrayList<>();
-        rootArray.add(root);
-        nodesHolder.put(-1,rootArray);
-    }
+//    private void init(){
+//      //  ArrayList<TreeNode> rootArray = new ArrayList<>();
+//     //   rootArray.add(root);
+//     //   nodesHolder.put(-1,rootArray);
+//    }
 
-    public TreeNode getRoot (){
-        return root;
-    }
+//    public TreeNode getRoot (){
+//        return root;
+//    }
 
-    public void addChild(TreeNode parentNode, TreeNode childNode, int xLocOfChild, int yLocOfChild){
+    public void addNodes(TreeNode childNode, int xLocOfChild, int yLocOfChild){
 //    public void addChild(TreeNode parentNode, TreeNode childNode, int levelInTree){
-        parentNode.addChild(childNode);
+//    parentNode.addChild(childNode);
 //        if (nodesHolder.containsKey(xLocOfChild*100+yLocOfChild)){
 //            ArrayList<TreeNode> arrayToChange = nodesHolder.get(xLocOfChild*100+yLocOfChild);
 //            arrayToChange.add(childNode);

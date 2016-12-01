@@ -7,7 +7,7 @@ public class GameSolver {
 
     int [][] cell_values;
     SolutionMap solutionMap;
-    TreeNode currentNode;
+ //   TreeNode currentNode;
   //  int currentLevel = 0;
     ArrayList<SolutionCell> rowSums = new ArrayList<>();
     TreeMap<Integer,SolutionCell> columnSums = new TreeMap <>();
@@ -17,7 +17,7 @@ public class GameSolver {
 
         this.cell_values = cell_values;
         this.solutionMap = new SolutionMap();
-        this.currentNode = solutionMap.getRoot();
+   //     this.currentNode = solutionMap.getRoot();
     }
 
     /**
@@ -147,15 +147,15 @@ public class GameSolver {
 
     private void addValuestoTree(ArrayList<Integer> possibleValues, int xLoc, int yLoc){
      //   TreeNode parentsToAdd = solverMap.getNodeAt(level).get(0);
-        TreeNode parentsToAdd = currentNode;
+   //     TreeNode parentsToAdd = currentNode;
    //     System.out.println(possibleValues.size());
 
             for (int i = 0; i < possibleValues.size(); i ++){
  //               System.out.println("-_-");
-                TreeNode childToAdd= new TreeNode(parentsToAdd,possibleValues.get(i));
-                solutionMap.addChild(parentsToAdd,childToAdd,xLoc,yLoc);
+                TreeNode childToAdd= new TreeNode(possibleValues.get(i));
+                solutionMap.addNodes(childToAdd,xLoc,yLoc);
             }
-        currentNode = parentsToAdd.getChildofIndex(0);
+       // currentNode = parentsToAdd.getChildofIndex(0);
     }
 
     private void pruneTreeOnRow(){

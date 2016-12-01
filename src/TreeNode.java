@@ -6,11 +6,11 @@ import java.util.List;
  * This treenode constitue the Tree class.
  */
 public class TreeNode {
-    TreeNode parent;
+    //TreeNode parent;
     int value;
     ArrayList<TreeNode> children = new ArrayList<>();
-    public TreeNode(TreeNode parent, int value){
-        this.parent = parent;
+    public TreeNode(int value){
+   //     this.parent = parent;
         this.value = value;
     }
 
@@ -18,9 +18,9 @@ public class TreeNode {
         children.add(childNode);
     }
 
-    public TreeNode getParent() {
-        return parent;
-    }
+  //  public TreeNode getParent() {
+  //      return parent;
+    //}
 
     public int getValue() {
         return value;
