@@ -7,8 +7,8 @@ public class GameSolver {
 
     int [][] cell_values;
     Tree solver_tree;
-    ArrayList<Integer> currentNodeValues = new ArrayList<>();
-    int currentLevel = 0;
+    TreeNode currentNode;
+  //  int currentLevel = 0;
     ArrayList<SolutionCell> rowSums = new ArrayList<>();
     TreeMap<Integer,SolutionCell> columnSums = new TreeMap <>();
 
@@ -17,7 +17,7 @@ public class GameSolver {
 
         this.cell_values = cell_values;
         this.solver_tree = new Tree();
-
+        this.currentNode = solver_tree.getRoot();
     }
 
     public void solveGame(){
@@ -26,9 +26,9 @@ public class GameSolver {
             for (int j = 0; j<7; j++) {
                 if (cell_values[i][j] == 0){
                     ArrayList<Integer> possibleValues = findPossibleValues(i,j);
-                    addValuestoTree(possibleValues,currentLevel);
+                    addValuestoTree(possibleValues,i, j);
             //        System.out.println("row" +i+"c"+j);
-                    currentLevel++;
+            //        currentLevel++;
                     }
             }
         }
@@ -111,15 +111,17 @@ public class GameSolver {
         return result;
     }
 
-    private void addValuestoTree(ArrayList<Integer> possibleValues, int level){
-        TreeNode parentsToAdd = solver_tree.getNodeAt(level).get(0);
+    private void addValuestoTree(ArrayList<Integer> possibleValues, int xLoc, int yLoc){
+     //   TreeNode parentsToAdd = solver_tree.getNodeAt(level).get(0);
+        TreeNode parentsToAdd = currentNode;
    //     System.out.println(possibleValues.size());
 
             for (int i = 0; i < possibleValues.size(); i ++){
  //               System.out.println("-_-");
                 TreeNode childToAdd= new TreeNode(parentsToAdd,possibleValues.get(i));
-                solver_tree.addChild(parentsToAdd,childToAdd,(level+1));
+                solver_tree.addChild(parentsToAdd,childToAdd,xLoc,yLoc);
             }
+        currentNode = parentsToAdd.getChildofIndex(0);
     }
 
     private void fillInSolution (){

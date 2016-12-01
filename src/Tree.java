@@ -22,15 +22,15 @@ public class Tree {
     private void init(){
         ArrayList<TreeNode> rootArray = new ArrayList<>();
         rootArray.add(root);
-        nodesHolder.put(0,rootArray);
+        nodesHolder.put(-1,rootArray);
     }
 
     public TreeNode getRoot (){
         return root;
     }
 
-//    public void addChild(TreeNode parentNode, TreeNode childNode, int xLocOfChild, int yLocOfChild){
-    public void addChild(TreeNode parentNode, TreeNode childNode, int levelInTree){
+    public void addChild(TreeNode parentNode, TreeNode childNode, int xLocOfChild, int yLocOfChild){
+//    public void addChild(TreeNode parentNode, TreeNode childNode, int levelInTree){
         parentNode.addChild(childNode);
 //        if (nodesHolder.containsKey(xLocOfChild*100+yLocOfChild)){
 //            ArrayList<TreeNode> arrayToChange = nodesHolder.get(xLocOfChild*100+yLocOfChild);
@@ -42,6 +42,7 @@ public class Tree {
 //            newArray.add(childNode);
 //            nodesHolder.put(xLocOfChild*100+yLocOfChild, newArray);
 //        }
+        Integer levelInTree = xLocOfChild * 100 + yLocOfChild;
         if(nodesHolder.containsKey(levelInTree)){
             ArrayList<TreeNode> arrayToChange = nodesHolder.get(levelInTree);
             arrayToChange.add(childNode);
@@ -59,8 +60,8 @@ public class Tree {
 //    public ArrayList<TreeNode> getNodeAt (int xLocofNode, int yLocofNode){
 //        return nodesHolder.get(xLocofNode*100+yLocofNode);
 //    }
-    public ArrayList<TreeNode> getNodeAt (int level){
-        return nodesHolder.get(level);
+    public ArrayList<TreeNode> getNodeAt (int xLoc, int yLoc){
+        return nodesHolder.get(xLoc * 100 + yLoc);
     }
 
     public String toString(){
