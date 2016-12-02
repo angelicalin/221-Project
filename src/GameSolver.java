@@ -11,13 +11,15 @@ public class GameSolver {
   //  int currentLevel = 0;
     ArrayList<SolutionCell> rowSums = new ArrayList<>();
     TreeMap<Integer,SolutionCell> columnSums = new TreeMap <>();
+    int [][] currentSolution;
 
 
     public GameSolver(int[][] cell_values){
 
         this.cell_values = cell_values;
         this.solutionMap = new SolutionMap();
-   //     this.currentNode = solutionMap.getRoot();
+   //     this.currentNode = solutionMap.getRoot();\
+        currentSolution = new int [cell_values.length/2][cell_values[0].length];
     }
 
     /**
@@ -36,10 +38,12 @@ public class GameSolver {
                     }
             }
         }
-        solutionMap.traverseTree();
-        pruneTreeOnRow();
-        pruneTreeOnColumn();
-        solutionMap.traverseTree();
+        //solutionMap.traverseTree();
+        //pruneTreeOnRow();
+       // pruneTreeOnColumn();
+        //solutionMap.traverseTree();
+        System.out.println(fixedLengthPartition(15,2));
+
 //        for (int x = 0; x<rowSums.size();x++){
 //            String rowSumString = "row " +rowSums.get(x).getX() + " column " + rowSums.get(x).getY() + " is value " +rowSums.get(x).getValue()+ " to Add " + rowSums.get(x).getNumToAdd() + "numbers";
 //            System.out.println(rowSumString);
@@ -140,8 +144,6 @@ public class GameSolver {
             for (int i =1; (i<sum&i<10);i++){
                 result.add(i);
             }
-
-
         return result;
     }
 
@@ -158,41 +160,61 @@ public class GameSolver {
        // currentNode = parentsToAdd.getChildofIndex(0);
     }
 
-    private void pruneTreeOnRow(){
-        for (int i = 0; i<rowSums.size();i++){
-            SolutionCell singleRowSum = rowSums.get(i);
-            int xLocofRowSum = singleRowSum.getX();
-            int yLocofRowSum = singleRowSum.getY();
-            int numToAdd = singleRowSum.getNumToAdd();
-            if (singleRowSum.getValue()%numToAdd == 0) {
+    /**
+     * This method will take in two integers, a sum and a num
+     * @param sum number to partition
+     * @param num fixed partition parts
+     * @return a list of all the possible number that can be used, and under 9
+     */
+    private ArrayList<Integer> fixedLengthPartition(int sum, int num){
+        ArrayList <Integer> result = new ArrayList<>();
+        ArrayList<Integer> partition = new ArrayList<>();
+        partition.add(sum-num+1);
+        for (int t = 1; t < num;t++) {
+            partition.add(1);
+        }
 
-                int numberToRemove = singleRowSum.getValue() / numToAdd;
-                System.out.println(numberToRemove);
-                for(int j =1; j <= numToAdd; j++){
-                    solutionMap.removeChildofValue(numberToRemove,xLocofRowSum,yLocofRowSum+j);
+        boolean doable = true;
+        while (doable){
+            int a_1 = partition.get(0);
+            int i = 1;
+            while ((!(partition.get(i)<a_1-1))){
+                i++;
+                if (i>=partition.size()-1){
+                    doable = false;
+                    break;
                 }
             }
+            if (!doable){
+                break;
+            }
+            int a_i = partition.get(i);
 
-        }
-    }
-    private void pruneTreeOnColumn(){
-        for (Map.Entry<Integer, SolutionCell> entry: columnSums.entrySet()){
-//            String columnSum = "row " +entry.getValue().getX() +" column " + entry.getValue().getY()+ " is value " +entry.getValue().getValue()+ " to Add " + entry.getValue().getNumToAdd() + "numbers";
-//            System.out.println(columnSum);
-            SolutionCell singleColumnSum = entry.getValue();
-            int xLocofRowSum = singleColumnSum.getX();
-            int yLocofRowSum = singleColumnSum.getY();
-            int numToAdd = singleColumnSum.getNumToAdd();
-            if (singleColumnSum.getValue()%numToAdd == 0) {
-                int numberToRemove = singleColumnSum.getValue() / numToAdd;
-  //              System.out.println(numberToRemove);
-                for(int j =1; j <= numToAdd; j +=2){
-                    solutionMap.removeChildofValue(numberToRemove,xLocofRowSum+j,yLocofRowSum);
+            for (int j = 1; j<=i ;j ++){
+                partition.set(j,a_i+1);
+            }
+            int current_sum = 0;
+            for (int y = 1;y < partition.size();y++){
+                current_sum += partition.get(y);
+            }
+            partition.set(0,sum-current_sum);
+            boolean unique = true;
+            for (int x = 0;x<partition.size()-1&unique;x++){
+                if (partition.get(x)==partition.get(x+1)|partition.get(x)>9){
+                    unique = false;
                 }
             }
-
+            if (unique) {
+                result.addAll(partition);
+            }
+            Set<Integer> hs = new HashSet<>();
+            hs.addAll(result);
+            result.clear();
+            result.addAll(hs);
         }
+        return result;
     }
+
 
 }
 
