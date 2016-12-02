@@ -1,40 +1,50 @@
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by angelica on 11/25/16.
  * This treenode constitue the Tree class.
  */
 public class TreeNode {
-    //TreeNode parent;
-    int value;
-    ArrayList<TreeNode> children = new ArrayList<>();
-    public TreeNode(int value){
-   //     this.parent = parent;
-        this.value = value;
+    ArrayList<Integer> possibleValues;
+    int xLoc;
+    int yLoc;
+    Boolean visited;
+
+
+
+    public TreeNode(ArrayList<Integer> possibleValues, int xLoc, int yLoc){
+
+        this.possibleValues = possibleValues;
+        this.xLoc = xLoc;
+        this.yLoc = yLoc;
+        this.visited = false;
     }
 
-    public void addChild (TreeNode childNode){
-        children.add(childNode);
+
+
+    public void setPossibleValues(ArrayList<Integer> possibleValues) {
+        this.possibleValues = possibleValues;
     }
 
-  //  public TreeNode getParent() {
-  //      return parent;
-    // }
-
-    public int getValue() {
-        return value;
+    public ArrayList<Integer> getValue() {
+        return possibleValues;
     }
 
-    public ArrayList<TreeNode> getChildrenList() {
-        return children;
+    public Boolean getVisited() {
+        return visited;
     }
 
-    public TreeNode getChildofIndex(int i){
-        return children.get(i);
+    public void setVisited(Boolean visited) {
+        this.visited = visited;
     }
 
-    public void removeChild(TreeNode childNode){
-        children.remove(childNode);
+    public void addAValue(Integer singleValue){
+        this.possibleValues.add(singleValue);
     }
+
+    public void addAValue(ArrayList<Integer> values){
+        this.possibleValues.addAll(values);
+    }
+
+
 }
