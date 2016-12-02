@@ -1,4 +1,6 @@
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Created by angelica on 11/25/16.
@@ -42,8 +44,15 @@ public class CellContainer {
         this.possibleValues.add(singleValue);
     }
 
-    public void addAValue(ArrayList<Integer> values){
-        this.possibleValues.addAll(values);
+    public void addValues(ArrayList<Integer> values){
+        this.possibleValues = union(values,this.possibleValues);
+    }
+
+    private ArrayList<Integer> union (ArrayList<Integer> list1, ArrayList<Integer> list2){
+        Set<Integer> set = new HashSet<>();
+        set.addAll(list1);
+        set.addAll(list2);
+        return new ArrayList<>(set);
     }
 
 

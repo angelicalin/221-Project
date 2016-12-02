@@ -7,7 +7,7 @@ import java.util.Map;
  */
 
 public class SolutionMap {
-    private CellContainer root;
+
     /*
     This hashmap tracks the location of each treenode.
      */
@@ -24,9 +24,15 @@ public class SolutionMap {
 
         int[] loc =  new int []{xLoc,yLoc};
 
-
-        CellContainer newCell = new CellContainer(integerArrayList,xLoc,yLoc);
-        nodesHolder.put(loc, newCell);
+        if (nodesHolder.containsKey(loc)){
+            CellContainer cellToChange = nodesHolder.get(loc);
+            cellToChange.addValues(integerArrayList);
+            nodesHolder.put(loc,cellToChange);
+        }
+        else {
+            CellContainer newCell = new CellContainer(integerArrayList, xLoc, yLoc);
+            nodesHolder.put(loc, newCell);
+        }
             //System.out.println("oh");
     }
 
@@ -37,7 +43,7 @@ public class SolutionMap {
 
     public void traverseTree(){
         for (Map.Entry<int[], CellContainer> entry: nodesHolder.entrySet()){
-            String toPrint = "Level" + entry.getKey()+" {"+entry.getValue().getValue()+"}";
+            String toPrint = "Level" + entry.getKey()[0]+","+entry.getKey()[1]+" {"+entry.getValue().getValue()+"}";
             System.out.println(toPrint);
         }
     }

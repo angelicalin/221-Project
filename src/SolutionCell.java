@@ -16,8 +16,8 @@ public class SolutionCell {
         this.isRowSum = isRowSum;
     }
 
-    public int getLoc(){
-        return x*100+y;
+    public int[] getLoc(){
+        return new int[]{x,y};
     }
     public void incrementNumToAdd(){
         numToAdd++;

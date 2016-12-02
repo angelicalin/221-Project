@@ -8,7 +8,8 @@ public class GameSolver {
     int [][] cell_values;
     SolutionMap solutionMap;
     ArrayList<SolutionCell> rowSums = new ArrayList<>();
-    TreeMap<Integer,SolutionCell> columnSums = new TreeMap <>();
+    TreeMap<Integer,SolutionCell> columnSumsMap = new TreeMap <>();
+    ArrayList<SolutionCell> columnSums = new ArrayList<>();
     int [][] currentSolution;
 
 
@@ -29,12 +30,45 @@ public class GameSolver {
             for (int j = 0; j<7; j++) {
                 if (cell_values[i][j] == 0){
                     findSums(i,j);
-                    }
+                }
             }
         }
+        for (Map.Entry<Integer, SolutionCell> entry : columnSumsMap.entrySet()){
+            columnSums.add(entry.getValue());
+        }
+        System.out.println(fixedLengthPartition(3,2));
+        loopOverEmptyCells();
+        solutionMap.traverseTree();
 
-        System.out.println(fixedLengthPartition(15,2));
 
+    }
+
+    private void loopOverEmptyCells() {
+        for (int i=0; i < rowSums.size();i++){
+            int numToAdd = rowSums.get(i).getNumToAdd();
+            int sum = rowSums.get(i).getValue();
+            int[] loc = rowSums.get(i).getLoc();
+            int x = loc[0];
+            int y = loc[1];
+            for (int j = 1; j < numToAdd+1; j ++){
+                ArrayList<Integer> possibleValues = fixedLengthPartition(sum,numToAdd);
+                System.out.println("Sum is " + sum + "numToAdd is" + numToAdd + "Location at" + x +"," + y );
+                System.out.println(possibleValues);
+
+                solutionMap.addNodes(possibleValues,x, y+j);
+            }
+        }
+        for (int i = 0; i < columnSums.size();i++){
+            int numToAdd = columnSums.get(i).getNumToAdd();
+            int sum = columnSums.get(i).getValue();
+            int[] loc = columnSums.get(i).getLoc();
+            int x = loc[0];
+            int y = loc[1];
+            for (int j = 1; j < numToAdd+1; j ++){
+                ArrayList<Integer> possibleValues = fixedLengthPartition(sum,numToAdd);
+                solutionMap.addNodes(possibleValues,x+2*j, y);
+            }
+        }
     }
 
     /**
@@ -65,15 +99,14 @@ public class GameSolver {
         }
         Integer sum = cell_values[rowIndex][columnIndex];
         if (numberToAdd==1){
-            SolutionCell solutionCell = new SolutionCell(rowIndex, columnIndex, sum,false);
-            columnSums.put(rowIndex * 100+columnIndex, solutionCell);
+            SolutionCell solutionCell = new SolutionCell(rowIndex-1, columnIndex, sum,false);
+            columnSumsMap.put(rowIndex * 100+columnIndex, solutionCell);
         }
         else {
-            SolutionCell solutionCell = columnSums.get(rowIndex*100+columnIndex);
+            SolutionCell solutionCell = columnSumsMap.get(rowIndex*100+columnIndex);
             solutionCell.incrementNumToAdd();
-            columnSums.put(rowIndex * 100+columnIndex,solutionCell);
+            columnSumsMap.put(rowIndex * 100+columnIndex,solutionCell);
         }
-
     }
 
     /**
@@ -99,12 +132,8 @@ public class GameSolver {
         else {
             rowSums.get(rowSums.size()-1).incrementNumToAdd();
         }
-        }
-
-    private void addValuestoTree(ArrayList<Integer> possibleValues, int xLoc, int yLoc){
-        solutionMap.addNodes(possibleValues,xLoc,yLoc);
-       // currentNode = parentsToAdd.getChildofIndex(0);
     }
+
 
     /**
      * This method will take in two integers, a sum and a num
