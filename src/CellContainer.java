@@ -4,7 +4,7 @@ import java.util.ArrayList;
  * Created by angelica on 11/25/16.
  * This treenode constitue the Tree class.
  */
-public class TreeNode {
+public class CellContainer {
     ArrayList<Integer> possibleValues;
     int xLoc;
     int yLoc;
@@ -12,7 +12,7 @@ public class TreeNode {
 
 
 
-    public TreeNode(ArrayList<Integer> possibleValues, int xLoc, int yLoc){
+    public CellContainer(ArrayList<Integer> possibleValues, int xLoc, int yLoc){
 
         this.possibleValues = possibleValues;
         this.xLoc = xLoc;
