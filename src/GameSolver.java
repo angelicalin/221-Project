@@ -184,6 +184,7 @@ public class GameSolver {
             int yLocofRowSum = singleColumnSum.getY();
             int numToAdd = singleColumnSum.getNumToAdd();
             if (singleColumnSum.getValue()%numToAdd == 0) {
+
                 int numberToRemove = singleColumnSum.getValue() / numToAdd;
   //              System.out.println(numberToRemove);
                 for(int j =1; j <= numToAdd; j +=2){
