@@ -45,14 +45,17 @@ public class CellContainer {
     }
 
     public void addValues(ArrayList<Integer> values){
-        this.possibleValues = union(values,this.possibleValues);
+        this.possibleValues = intersect(values,this.possibleValues);
     }
 
-    private ArrayList<Integer> union (ArrayList<Integer> list1, ArrayList<Integer> list2){
-        Set<Integer> set = new HashSet<>();
-        set.addAll(list1);
-        set.addAll(list2);
-        return new ArrayList<>(set);
+    private ArrayList<Integer> intersect (ArrayList<Integer> list1, ArrayList<Integer> list2){
+        ArrayList<Integer> list = new ArrayList<>();
+        for (Integer t : list1){
+            if (list2.contains(t)){
+                list.add(t);
+            }
+        }
+        return list;
     }
 
 

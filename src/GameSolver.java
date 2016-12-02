@@ -36,10 +36,9 @@ public class GameSolver {
         for (Map.Entry<Integer, SolutionCell> entry : columnSumsMap.entrySet()){
             columnSums.add(entry.getValue());
         }
-        System.out.println(fixedLengthPartition(3,2));
         loopOverEmptyCells();
         solutionMap.traverseTree();
-
+        //fixedLengthPartition(4,2);
 
     }
 
@@ -148,14 +147,18 @@ public class GameSolver {
         for (int t = 1; t < num;t++) {
             partition.add(1);
         }
-
+        if (checkUniqueArray(partition)) {
+            result = union(partition,result);
+        }
         boolean doable = true;
         while (doable){
             int a_1 = partition.get(0);
             int i = 1;
+//            System.out.println(partition);
             while ((!(partition.get(i)<a_1-1))){
                 i++;
-                if (i>=partition.size()-1){
+
+                if (i>partition.size()-1){
                     doable = false;
                     break;
                 }
@@ -173,21 +176,29 @@ public class GameSolver {
                 current_sum += partition.get(y);
             }
             partition.set(0,sum-current_sum);
-            boolean unique = true;
-            for (int x = 0;x<partition.size()-1&unique;x++){
-                if (partition.get(x)==partition.get(x+1)|partition.get(x)>9){
-                    unique = false;
-                }
+
+            if (checkUniqueArray(partition)) {
+                result = union(partition,result);
             }
-            if (unique) {
-                result.addAll(partition);
-            }
-            Set<Integer> hs = new HashSet<>();
-            hs.addAll(result);
-            result.clear();
-            result.addAll(hs);
         }
+
         return result;
+    }
+    private ArrayList<Integer> union (ArrayList<Integer> list1, ArrayList<Integer> list2){
+        Set<Integer> set = new HashSet<>();
+        set.addAll(list1);
+        set.addAll(list2);
+        return new ArrayList<>(set);
+    }
+
+    private boolean checkUniqueArray(ArrayList<Integer> partition){
+        boolean unique = true;
+        for (int x = 0;x<partition.size()-1&unique;x++){
+            if (partition.get(x)==partition.get(x+1)|partition.get(x)>9){
+                unique = false;
+            }
+        }
+        return unique;
     }
 
 
