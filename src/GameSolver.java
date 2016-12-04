@@ -47,10 +47,7 @@ public class GameSolver {
             int x = loc[0];
             int y = loc[1];
             for (int j = 1; j < numToAdd+1; j ++){
-                System.out.println("Sum is " + sum + "numToAdd is" + numToAdd + "Location at" + x +"," + y );
                 ArrayList<Integer> possibleValues = fixedLengthPartition(sum,numToAdd);
-                System.out.println(possibleValues);
-
                 solutionMap.addNodes(possibleValues,x, y+j);
             }
         }
@@ -77,7 +74,6 @@ public class GameSolver {
     private void findSums(int rowIndex, int columnIndex){
         findRowSum(rowIndex,columnIndex);
         findColumnSum(rowIndex,columnIndex);
-        System.out.println(columnSumsMap.size());
         }
 
     /**
@@ -87,9 +83,7 @@ public class GameSolver {
      * @return An array list of integers that contain possible values for a cell from column sum
      */
     private void findColumnSum(int rowIndex, int columnIndex) {
-        Integer numberToAdd = 0;
         while(cell_values[rowIndex][columnIndex] == 0){
-            numberToAdd ++;
             rowIndex--;
         }
         Integer sum = cell_values[rowIndex][columnIndex];
@@ -99,7 +93,6 @@ public class GameSolver {
             columnSumsMap.put(location, solutionCell);
         }
         else {
-            System.out.println("ha");
             SolutionCell solutionCell = columnSumsMap.get(location);
             solutionCell.incrementNumToAdd();
             columnSumsMap.put(location,solutionCell);
@@ -113,10 +106,7 @@ public class GameSolver {
      * @return An array list of integers that contain possible values for a cell from row sum
      */
     private void findRowSum(int rowIndex, int columnIndex) {
-        Integer numberToAdd = 0;
-
         while(cell_values[rowIndex][columnIndex] == 0){
-            numberToAdd ++;
             columnIndex--;
         }
         Integer sum = cell_values[rowIndex][columnIndex];

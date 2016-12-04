@@ -32,8 +32,9 @@ public class SolutionMap {
         else {
             CellContainer newCell = new CellContainer(integerArrayList, xLoc, yLoc);
             nodesHolder.put(loc, newCell);
+            System.out.println("oh");
         }
-            //System.out.println("oh");
+
     }
 
 
