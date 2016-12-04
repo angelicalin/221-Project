@@ -26,7 +26,7 @@ public class SolutionMap {
 
         if (nodesHolder.containsKey(loc)){
             CellContainer cellToChange = nodesHolder.get(loc);
-            cellToChange.addValues(integerArrayList);
+            cellToChange.addPossibleValues(integerArrayList);
             nodesHolder.put(loc,cellToChange);
         }
         else {
@@ -43,8 +43,16 @@ public class SolutionMap {
 
     public void traverseTree(){
         for (Map.Entry<int[], CellContainer> entry: nodesHolder.entrySet()){
-            String toPrint = "Level" + entry.getKey()[0]+","+entry.getKey()[1]+" {"+entry.getValue().getValue()+"}";
+            String toPrint = "Level" + entry.getKey()[0]+","+entry.getKey()[1]+" {"+entry.getValue().getPossibleValue()+"}";
             System.out.println(toPrint);
+        }
+    }
+
+    public boolean contain(int[] loc){
+        if (nodesHolder.containsKey(loc)){
+            return true;
+        } else {
+            return false;
         }
     }
 

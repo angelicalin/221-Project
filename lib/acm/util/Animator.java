@@ -629,7 +629,7 @@ public class Animator extends Thread {
 /**
  * This class acts as a generic listener to any kind of speed bar.  The
  * two principal models are <code>JSlider</code> or a <code>JScrollBar</code>,
- * but the listener can be anything that implements the methods <code>getValue</code>,
+ * but the listener can be anything that implements the methods <code>getPossibleValue</code>,
  * <code>getMinimum</code>, and <code>getMaximum</code> along with either
  * <code>addChangeListener</code> or <code>addAdjustmentListener</code>.
  * The extra generality is not really important here.  The key is to allow
@@ -654,7 +654,7 @@ class SpeedBarListener implements AdjustmentListener, ChangeListener {
 			addListener = lookForMethod(speedBarClass, "addChangeListener");
 		}
 		try {
-			listener.getValue = speedBarClass.getMethod("getValue", new Class[0]);
+			listener.getValue = speedBarClass.getMethod("getPossibleValue", new Class[0]);
 			listener.getMinimum = speedBarClass.getMethod("getMinimum", new Class[0]);
 			listener.getMaximum = speedBarClass.getMethod("getMaximum", new Class[0]);
 			Object[] args = { listener };

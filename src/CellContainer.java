@@ -1,6 +1,4 @@
 import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Set;
 
 /**
  * Created by angelica on 11/25/16.
@@ -11,6 +9,8 @@ public class CellContainer {
     int xLoc;
     int yLoc;
     Boolean visited;
+    ArrayList<Integer> visitedValues;
+    int currentValue;
 
 
 
@@ -20,6 +20,7 @@ public class CellContainer {
         this.xLoc = xLoc;
         this.yLoc = yLoc;
         this.visited = false;
+        this.visitedValues = new ArrayList<Integer>();
     }
 
 
@@ -28,7 +29,7 @@ public class CellContainer {
         this.possibleValues = possibleValues;
     }
 
-    public ArrayList<Integer> getValue() {
+    public ArrayList<Integer> getPossibleValue() {
         return possibleValues;
     }
 
@@ -44,8 +45,20 @@ public class CellContainer {
         this.possibleValues.add(singleValue);
     }
 
-    public void addValues(ArrayList<Integer> values){
+    public void addPossibleValues(ArrayList<Integer> values){
         this.possibleValues = intersect(values,this.possibleValues);
+    }
+
+    public ArrayList<Integer> getVisitedValues() {
+        return visitedValues;
+    }
+
+    public void setVisitedValues(ArrayList<Integer> visitedValues) {
+        this.visitedValues = visitedValues;
+    }
+
+    public void addVisitedValues(ArrayList<Integer> values){
+        this.visitedValues = intersect(values,this.visitedValues);
     }
 
     private ArrayList<Integer> intersect (ArrayList<Integer> list1, ArrayList<Integer> list2){
@@ -57,6 +70,8 @@ public class CellContainer {
         }
         return list;
     }
+
+
 
 
 }

@@ -27,19 +27,19 @@ public class SolutionCell {
     }
 
 
-    public int getX() {
+    public int getRowIndex() {
         return x;
     }
 
-    public void setX(int x) {
+    public void setRowIndex(int x) {
         this.x = x;
     }
 
-    public int getY() {
+    public int getColumnIndex() {
         return y;
     }
 
-    public void setY(int y) {
+    public void setColumnIndex(int y) {
         this.y = y;
     }
 

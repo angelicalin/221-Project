@@ -15,6 +15,7 @@ public class GameSolver {
 
 
     public GameSolver(int[][] cell_values){
+
         this.cell_values = cell_values;
         this.solutionMap = new SolutionMap();
         currentSolution = new int [cell_values.length/2][cell_values[0].length];
@@ -27,6 +28,7 @@ public class GameSolver {
      */
 
     public void analyizeGameInit(){
+
         for (int i = 0; i <14; i +=2){
             for (int j = 0; j<7; j++) {
                 if (cell_values[i][j] == 0){
@@ -47,8 +49,8 @@ public class GameSolver {
             int x = loc[0];
             int y = loc[1];
             for (int j = 1; j < numToAdd+1; j ++){
-                System.out.println("Sum is " + sum + "numToAdd is" + numToAdd + "Location at" + x +"," + y );
                 ArrayList<Integer> possibleValues = fixedLengthPartition(sum,numToAdd);
+                System.out.println("Sum is " + sum + "numToAdd is" + numToAdd + "Location at" + x +"," + y );
                 System.out.println(possibleValues);
 
                 solutionMap.addNodes(possibleValues,x, y+j);
@@ -194,7 +196,79 @@ public class GameSolver {
         return unique;
     }
 
-//    private void
+
+    private void solveEmptyCells() {
+        int[] currentLocation = new int[]{2,0};
+        while(currentLocation[0]<14 & (currentLocation[1]<7)) {
+            solvePartofEmptyCells(currentLocation);
+
+        }
+
+    }
+
+    private void solvePartofEmptyCells(int[] currentLocation) {
+
+        int[] changingRowLocation = currentLocation;
+        int[] changingColumnLocation = currentLocation;
+        int rowIndexToRowSum = 0;
+        int currentRowIndex = currentLocation[0];
+        int currentColumnIndex = currentLocation[1];
+        Boolean rowSumDone = false;
+        Boolean columnSumDone = false;
+
+        // find row sum
+        while (solutionMap.contain(changingRowLocation)) {
+            rowIndexToRowSum ++;
+            changingRowLocation[1] -= 1;
+
+        }
+        changingRowLocation[1]-=1;
+
+        SolutionCell currentRowSumCell = rowSumsMap.get(changingRowLocation[0]*100+changingRowLocation[1]);
+        int rowNumToAdd = currentRowSumCell.getNumToAdd();
+        int currentRowSum = currentRowSumCell.getValue();
+
+        // solve values for cells in a row.
+
+        CellContainer currentCell = solutionMap.getNodeAt(currentRowIndex, currentColumnIndex);
+
+        if (!currentCell.getVisited()){
+            int currentValue = currentCell.getPossibleValue().get(0);
+            currentSolution[currentRowIndex][currentColumnIndex] = currentValue;
+            ArrayList<Integer> newPossibleValues = currentCell.getPossibleValue();
+            newPossibleValues.remove(0);
+            newPossibleValues.add(currentValue);
+            currentCell.setPossibleValues(newPossibleValues);
+            currentCell.setVisited(true);
+        }
+
+
+        // check if it's the rightmost cell corresponding to a row sum
+
+        if (rowIndexToRowSum == rowNumToAdd ){
+            if (checkRowSum(currentRowSumCell)){
+                rowSumDone = true;
+            } else {
+
+            }
+        }
+
+
+        // find column sum
+        while (solutionMap.contain(changingRowLocation)) {
+            changingRowLocation[1] -= 1;
+        }
+        changingRowLocation[1]-=1;
+        SolutionCell currentColSumCell = rowSumsMap.get(changingRowLocation[0]*100+changingRowLocation[1]);
+
+    }
+
+    private Boolean checkRowSum(SolutionCell currentRowSumCell) {
+        int numToAdd = currentRowSumCell.getNumToAdd();
+        return false;
+    }
+
+
 }
 
 

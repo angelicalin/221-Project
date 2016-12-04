@@ -110,7 +110,7 @@ public class DoubleField extends JTextField {
 		exceptionOnError = false;
 	}
 
-/* Method: getValue() */
+/* Method: getPossibleValue() */
 /**
  * Returns the value of this field as a <code>double</code>.  If this value is either
  * not a legal numeric value or is outside the specified range, this method will
@@ -118,7 +118,7 @@ public class DoubleField extends JTextField {
  * <code>ErrorException</code> depending on the state of the <code>exceptionOnError</code>
  * flag.
  *
- * @usage double d = field.getValue();
+ * @usage double d = field.getPossibleValue();
  * @return The value stored in the field as a <code>double</code>
  */
 	public double getValue() {
@@ -222,7 +222,7 @@ public class DoubleField extends JTextField {
 /**
  * Sets the error-handling mode of this interactor as specified by the <code>flag</code>
  * parameter.  If <code>flag</code> is <code>false</code> (which is the default),
- * calling <a href="#getValue()"><code>getValue</code></a> on this interactor displays
+ * calling <a href="#getPossibleValue()"><code>getPossibleValue</code></a> on this interactor displays
  * a dialog that gives the user a chance to retry after erroneous input.  If this
  * value is set to <code>true</code>, illegal input raises an
  * <a href="../util/ErrorException.html"><code>ErrorException</code></a> instead.
