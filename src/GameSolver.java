@@ -7,17 +7,19 @@ public class GameSolver {
 
     int [][] cell_values;
     SolutionMap solutionMap;
-    ArrayList<SolutionCell> rowSums = new ArrayList<>();
-    TreeMap<Integer,SolutionCell> columnSumsMap = new TreeMap <>();
-    ArrayList<SolutionCell> columnSums = new ArrayList<>();
+    //ArrayList<SolutionCell> rowSums = new ArrayList<>();
+    HashMap <Integer, SolutionCell> rowSumsMap;
+    HashMap<Integer,SolutionCell> columnSumsMap;
+   // ArrayList<SolutionCell> columnSums = new ArrayList<>();
     int [][] currentSolution;
 
 
     public GameSolver(int[][] cell_values){
-
         this.cell_values = cell_values;
         this.solutionMap = new SolutionMap();
         currentSolution = new int [cell_values.length/2][cell_values[0].length];
+        rowSumsMap  = new HashMap<>();
+        columnSumsMap =  new HashMap <>();
     }
 
     /**
@@ -25,7 +27,6 @@ public class GameSolver {
      */
 
     public void analyizeGameInit(){
-
         for (int i = 0; i <14; i +=2){
             for (int j = 0; j<7; j++) {
                 if (cell_values[i][j] == 0){
@@ -33,34 +34,30 @@ public class GameSolver {
                 }
             }
         }
-        for (Map.Entry<Integer, SolutionCell> entry : columnSumsMap.entrySet()){
-            columnSums.add(entry.getValue());
-        }
+
         loopOverEmptyCells();
         solutionMap.traverseTree();
-        //fixedLengthPartition(4,2);
-
     }
 
     private void loopOverEmptyCells() {
-        for (int i=0; i < rowSums.size();i++){
-            int numToAdd = rowSums.get(i).getNumToAdd();
-            int sum = rowSums.get(i).getValue();
-            int[] loc = rowSums.get(i).getLoc();
+        for (Map.Entry<Integer, SolutionCell> entry: rowSumsMap.entrySet()){
+            int numToAdd = entry.getValue().getNumToAdd();
+            int sum = entry.getValue().getValue();
+            int[] loc = entry.getValue().getLoc();
             int x = loc[0];
             int y = loc[1];
             for (int j = 1; j < numToAdd+1; j ++){
-                ArrayList<Integer> possibleValues = fixedLengthPartition(sum,numToAdd);
                 System.out.println("Sum is " + sum + "numToAdd is" + numToAdd + "Location at" + x +"," + y );
+                ArrayList<Integer> possibleValues = fixedLengthPartition(sum,numToAdd);
                 System.out.println(possibleValues);
 
                 solutionMap.addNodes(possibleValues,x, y+j);
             }
         }
-        for (int i = 0; i < columnSums.size();i++){
-            int numToAdd = columnSums.get(i).getNumToAdd();
-            int sum = columnSums.get(i).getValue();
-            int[] loc = columnSums.get(i).getLoc();
+        for (Map.Entry<Integer,SolutionCell> entry:columnSumsMap.entrySet()){
+            int numToAdd = entry.getValue().getNumToAdd();
+            int sum = entry.getValue().getValue();
+            int[] loc = entry.getValue().getLoc();
             int x = loc[0];
             int y = loc[1];
             for (int j = 1; j < numToAdd+1; j ++){
@@ -80,6 +77,7 @@ public class GameSolver {
     private void findSums(int rowIndex, int columnIndex){
         findRowSum(rowIndex,columnIndex);
         findColumnSum(rowIndex,columnIndex);
+        System.out.println(columnSumsMap.size());
         }
 
     /**
@@ -88,8 +86,6 @@ public class GameSolver {
      * @param columnIndex the column index of a cell.
      * @return An array list of integers that contain possible values for a cell from column sum
      */
-
-
     private void findColumnSum(int rowIndex, int columnIndex) {
         Integer numberToAdd = 0;
         while(cell_values[rowIndex][columnIndex] == 0){
@@ -97,14 +93,16 @@ public class GameSolver {
             rowIndex--;
         }
         Integer sum = cell_values[rowIndex][columnIndex];
-        if (numberToAdd==1){
+        Integer location = (rowIndex-1)*100+columnIndex;
+        if (!columnSumsMap.containsKey(location)){
             SolutionCell solutionCell = new SolutionCell(rowIndex-1, columnIndex, sum,false);
-            columnSumsMap.put(rowIndex * 100+columnIndex, solutionCell);
+            columnSumsMap.put(location, solutionCell);
         }
         else {
-            SolutionCell solutionCell = columnSumsMap.get(rowIndex*100+columnIndex);
+            System.out.println("ha");
+            SolutionCell solutionCell = columnSumsMap.get(location);
             solutionCell.incrementNumToAdd();
-            columnSumsMap.put(rowIndex * 100+columnIndex,solutionCell);
+            columnSumsMap.put(location,solutionCell);
         }
     }
 
@@ -114,7 +112,6 @@ public class GameSolver {
      * @param columnIndex the column index of a cell.
      * @return An array list of integers that contain possible values for a cell from row sum
      */
-
     private void findRowSum(int rowIndex, int columnIndex) {
         Integer numberToAdd = 0;
 
@@ -123,16 +120,17 @@ public class GameSolver {
             columnIndex--;
         }
         Integer sum = cell_values[rowIndex][columnIndex];
-
-        if (numberToAdd==1){
+        Integer location = 100*rowIndex+columnIndex;
+        if (!rowSumsMap.containsKey(location)){
             SolutionCell solutionCell = new SolutionCell(rowIndex, columnIndex, sum,true);
-            rowSums.add(solutionCell);
+            rowSumsMap.put(location,solutionCell);
         }
         else {
-            rowSums.get(rowSums.size()-1).incrementNumToAdd();
+            SolutionCell solutionCell = rowSumsMap.get(location);
+            solutionCell.incrementNumToAdd();
+            rowSumsMap.put(location,solutionCell);
         }
     }
-
 
     /**
      * This method will take in two integers, a sum and a num
@@ -154,10 +152,8 @@ public class GameSolver {
         while (doable){
             int a_1 = partition.get(0);
             int i = 1;
-//            System.out.println(partition);
             while ((!(partition.get(i)<a_1-1))){
                 i++;
-
                 if (i>partition.size()-1){
                     doable = false;
                     break;
@@ -167,7 +163,6 @@ public class GameSolver {
                 break;
             }
             int a_i = partition.get(i);
-
             for (int j = 1; j<=i ;j ++){
                 partition.set(j,a_i+1);
             }
@@ -176,12 +171,10 @@ public class GameSolver {
                 current_sum += partition.get(y);
             }
             partition.set(0,sum-current_sum);
-
             if (checkUniqueArray(partition)) {
                 result = union(partition,result);
             }
         }
-
         return result;
     }
     private ArrayList<Integer> union (ArrayList<Integer> list1, ArrayList<Integer> list2){
@@ -201,7 +194,7 @@ public class GameSolver {
         return unique;
     }
 
-
+//    private void
 }
 
 
