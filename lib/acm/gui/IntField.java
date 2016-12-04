@@ -33,9 +33,6 @@
 
 package acm.gui;
 
-import acm.io.*;
-import acm.util.*;
-
 /* Class: IntField */
 /**
  * This class implements a simple interactor that accepts an integer value.
