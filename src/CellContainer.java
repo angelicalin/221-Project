@@ -11,6 +11,7 @@ public class CellContainer {
     int xLoc;
     int yLoc;
     Boolean visited;
+
    // ArrayList<Integer> visitedValues;
     Integer firstValue;
 
@@ -59,6 +60,9 @@ public class CellContainer {
     }
 
     public boolean loopedOverAlready(){
+        if (possibleValues.size()==1){
+            return true;
+        }
         return firstValue.equals(possibleValues.get(0));
     }
 
