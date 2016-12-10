@@ -31,7 +31,10 @@ public class SingleCellGraphics extends GCompound{
         setUpCell();
 
     }
-
+    public void setNewNum(Integer newNum){
+        up.setVisible(true);
+        up.setLabel(newNum.toString());
+    }
     private void setUpCell(){
         if (!fillable&(valueUp==-1)&(valueDown==-1)){
             singleCell.setFilled(true);

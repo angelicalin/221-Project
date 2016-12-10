@@ -37,7 +37,7 @@ public class KakuroProgram extends GraphicsProgram {
 
 
         add(checkBoard, 75, 75);
-        gameSolver = new GameSolver(gameInit);
+        gameSolver = new GameSolver(gameInit, checkBoard);
         gameSolver.analyizeGameInit();
 
     }

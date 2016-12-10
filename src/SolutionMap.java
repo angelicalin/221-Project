@@ -13,6 +13,10 @@ public class SolutionMap {
      */
     private HashMap<Integer, CellContainer> nodesHolder;
 
+    public HashMap<Integer, CellContainer> getNodesHolder() {
+        return nodesHolder;
+    }
+
     public SolutionMap(){
 
         nodesHolder = new HashMap<>(49);
@@ -32,7 +36,7 @@ public class SolutionMap {
         else {
             CellContainer newCell = new CellContainer(integerArrayList, rowIndex, columnIndex);
             nodesHolder.put(loc, newCell);
-            System.out.println("oh");
+    //        System.out.println("oh");
         }
 
     }
