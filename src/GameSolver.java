@@ -12,6 +12,9 @@ public class GameSolver {
     HashMap<Integer,SolutionCell> columnSumsMap;
     // ArrayList<SolutionCell> columnSums = new ArrayList<>();
     int [][] currentSolution;
+    final int ROW_NUM = 14;
+    final int COLUMN_NUM = 7;
+    int[]  currentLocation;
 
 
     public GameSolver(int[][] cell_values){
@@ -21,6 +24,7 @@ public class GameSolver {
         currentSolution = new int [cell_values.length][cell_values[0].length];
         rowSumsMap  = new HashMap<>();
         columnSumsMap =  new HashMap <>();
+        currentLocation = new int[]{2,1};
     }
 
     /**
@@ -36,9 +40,13 @@ public class GameSolver {
                 }
             }
         }
-
         loopOverEmptyCells();
-        solutionMap.traverseTree();
+       // solutionMap.traverseTree();
+//        for (Map.Entry<Integer,SolutionCell>entry: columnSumsMap.entrySet()){
+//            System.out.println(entry.getKey());
+//            System.out.println("Row"+entry.getValue().getRowIndex()+"Col" + entry.getValue().getColumnIndex());
+//        }
+        solveEmptyCells();
     }
 
     private void loopOverEmptyCells() {
@@ -50,8 +58,8 @@ public class GameSolver {
             int y = loc[1];
             for (int j = 1; j < numToAdd+1; j ++){
                 ArrayList<Integer> possibleValues = fixedLengthPartition(sum,numToAdd);
-                System.out.println("Sum is " + sum + "numToAdd is" + numToAdd + "Location at" + x +"," + y );
-                System.out.println(possibleValues);
+        //        System.out.println("Sum is " + sum + "numToAdd is" + numToAdd + "Location at" + x +"," + y );
+        //        System.out.println(possibleValues);
 
                 solutionMap.addNodes(possibleValues,x, y+j);
             }
@@ -79,7 +87,7 @@ public class GameSolver {
     private void findSums(int rowIndex, int columnIndex){
         findRowSum(rowIndex,columnIndex);
         findColumnSum(rowIndex,columnIndex);
-        System.out.println(columnSumsMap.size());
+        //System.out.println(columnSumsMap.size());
     }
 
     /**
@@ -95,13 +103,13 @@ public class GameSolver {
             rowIndex--;
         }
         Integer sum = cell_values[rowIndex][columnIndex];
-        Integer location = (rowIndex-1)*100+columnIndex;
+        Integer location = (rowIndex)*100+columnIndex;
         if (!columnSumsMap.containsKey(location)){
             SolutionCell solutionCell = new SolutionCell(rowIndex-1, columnIndex, sum,false);
             columnSumsMap.put(location, solutionCell);
         }
         else {
-            System.out.println("ha");
+          //  System.out.println("ha");
             SolutionCell solutionCell = columnSumsMap.get(location);
             solutionCell.incrementNumToAdd();
             columnSumsMap.put(location,solutionCell);
@@ -198,75 +206,95 @@ public class GameSolver {
 
 
     private void solveEmptyCells() {
-        int[] currentLocation = new int[]{2,0};
-        while(currentLocation[0]<14) {
+        //System.out.print("Start"+currentLocation[0]+currentLocation[1]);
 
-            SolutionCell currentRowSumCell = findCorrespondingRowSum(currentLocation);
-            SolutionCell currentColSumCell = findCorrespondingColSum(currentLocation);
+        while(currentLocation[0]<ROW_NUM) {
+            if (solutionMap.contain(currentLocation[0]*100 + currentLocation[1]) ) {
+                System.out.println(currentLocation[0]*100 + currentLocation[1]);
+               // System.out.println("Row"+currentLocation[0]+"Column"+currentLocation[1]);
+                SolutionCell currentRowSumCell = findCorrespondingRowSum(currentLocation);
+                //System.out.println("Row"+currentLocation[0]+"Column"+currentLocation[1]);
+                SolutionCell currentColSumCell = findCorrespondingColSum(currentLocation);
 
-            int currentRowIndex = currentLocation[0];
-            int currentColumnIndex = currentLocation[1];
+                int currentRowIndex = currentLocation[0];
 
-            CellContainer currentCell = solutionMap.getNodeAt(currentRowIndex, currentColumnIndex);
-            if (!currentCell.getVisited()){
-                int currentValue = currentCell.getPossibleValue().get(0);
-                currentSolution[currentRowIndex][currentColumnIndex] = currentValue;
-                ArrayList<Integer> newPossibleValues = currentCell.getPossibleValue();
-                newPossibleValues.remove(0);
-                newPossibleValues.add(currentValue);
-                currentCell.setPossibleValues(newPossibleValues);
+                int currentColumnIndex = currentLocation[1];
+
+
+                CellContainer currentCell = solutionMap.getNodeAt(currentRowIndex, currentColumnIndex);
+
+                currentSolution[currentRowIndex][currentColumnIndex] = currentCell.accessAPossibleValue();
                 currentCell.setVisited(true);
-            }
+                // check if it's the rightmost cell corresponding to a row sum
+                boolean rowSolved = true;
+                boolean columnSolved = true;
+                if ((currentColumnIndex - currentRowSumCell.getColumnIndex()) == currentRowSumCell.getNumToAdd()) {
+                    while (!checkRowSum(currentRowSumCell)) {
+                       currentSolution[currentRowIndex][currentColumnIndex] = currentCell.accessAPossibleValue();
+                        if (currentCell.loopedOverAlready()){
+                            goBackBeginningOfRowSum(currentRowSumCell.getColumnIndex());
+                            rowSolved = false;
+                            break;
+                        }
+                    }
+                }
+                // check if it's the bottom cell corresponding to a column sum
+//                System.out.println("Row"+currentColSumCell.getRowIndex()+"Column"+currentColSumCell.getColumnIndex());
+                if ((currentRowIndex - currentColSumCell.getRowIndex())/2 == currentColSumCell.getNumToAdd()) {
 
-
-            // check if it's the rightmost cell corresponding to a row sum
-
-            if ((currentRowIndex - currentRowSumCell.getRowIndex()) == currentColSumCell.getNumToAdd()){
-                while (!checkRowSum(currentRowSumCell)){
-                    //TODO: update current location and change values for those cells
+                    while (!checkColSum(currentColSumCell)) {
+                        currentSolution[currentRowIndex][currentColumnIndex] = currentCell.accessAPossibleValue();
+                        if (currentCell.loopedOverAlready()) {
+                            goBackBeginningOfRowSum(currentRowSumCell.getColumnIndex());
+                            columnSolved = false;
+                            break;
+                        }
+                    }
+                }
+                if (!columnSolved | !rowSolved) {
+                    goBackBeginningOfRowSum(currentRowSumCell.getColumnIndex());
+                }
+                else{
+                    updateCurrentLocationHorizontally();
                 }
             }
-
-            // check if it's the bottom cell corresponding to a row sum
-
-            if ((currentRowIndex - currentRowSumCell.getRowIndex()) == currentColSumCell.getNumToAdd()){
-                while (!checkColSum(currentColSumCell)){
-                    //TODO: update current location and change values for those cells
-                }
+            else{
+                updateCurrentLocationHorizontally();
+//                System.out.println("Out Loop"+currentLocation[0]+currentLocation[1]);
             }
-
-
-            // Update current location after we make sure the previous cell adds up to the correct number
-            if (currentLocation[1] == 7){
-                currentLocation[0]+=2;
-                currentLocation[1] = 0;
-            } else{
-                currentLocation[1]++;
-            }
-
         }
-
+        System.out.println("Solving Complete");
     }
 
-
+    private void updateCurrentLocationHorizontally(){
+        currentLocation[1] ++;
+        if (!(currentLocation[1]<COLUMN_NUM)){
+            currentLocation[0]+=2;
+            currentLocation[1]=1;
+        }
+    }
+    private void goBackBeginningOfRowSum(int rowSumColIndex){
+        currentLocation[1] = rowSumColIndex+1;
+    }
 
 
     private SolutionCell findCorrespondingRowSum(int[] loc) {
-        while (solutionMap.contain(loc)) {
-            loc[1] -= 1;
+        int copyrow = loc[0];
+        int copycolumn = loc[1];
+        while (solutionMap.contain(copyrow*100+copycolumn)) {
+            copycolumn --;
         }
-        loc[1]-=1;
-
-        return rowSumsMap.get(loc[0]*100+loc[1]);
+        return rowSumsMap.get(copyrow*100+copycolumn);
     }
 
     private SolutionCell findCorrespondingColSum(int[] loc) {
-        while(solutionMap.contain(loc)){
-            loc[0] -= 2;
+        int copyrow = loc[0];
+        int copycolumn = loc[1];
+        while(solutionMap.contain(copyrow*100+copycolumn)){
+            copyrow -= 2;
         }
-        loc[0]-=2;
-
-        return columnSumsMap.get(loc[0]*100+loc[1]);
+        copyrow ++;
+        return columnSumsMap.get(copyrow*100+copycolumn);
     }
 
     /**
@@ -275,19 +303,16 @@ public class GameSolver {
      * @return
      */
     private Boolean checkRowSum(SolutionCell currentRowSumCell) {
+
         int cellValueRowSum = 0;
         int rowIndex = currentRowSumCell.getRowIndex();
         int colIndex = currentRowSumCell.getColumnIndex();
-        for (int i = 1; i <= currentRowSumCell.getNumToAdd(); i ++){
+        for (int i = 0; i < currentRowSumCell.getNumToAdd(); i ++){
             colIndex ++;
             cellValueRowSum += currentSolution[rowIndex][colIndex];
         }
 
-        if (cellValueRowSum == currentRowSumCell.getValue()){
-            return true;
-        } else{
-            return false;
-        }
+        return (cellValueRowSum == currentRowSumCell.getValue());
 
     }
 
@@ -301,15 +326,11 @@ public class GameSolver {
         int cellValueColSum = 0;
         int rowIndex = currentColSumCell.getRowIndex();
         int colIndex = currentColSumCell.getColumnIndex();
-        for (int i = 1; i <= currentColSumCell.getNumToAdd(); i ++){
+        for (int i = 0; i < currentColSumCell.getNumToAdd(); i ++){
             rowIndex +=2;
             cellValueColSum += currentSolution[rowIndex][colIndex];
         }
-        if (cellValueColSum == currentColSumCell.getValue()){
-            return true;
-        } else{
-            return false;
-        }
+        return (cellValueColSum == currentColSumCell.getValue());
     }
 
 

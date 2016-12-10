@@ -11,8 +11,8 @@ public class CellContainer {
     int xLoc;
     int yLoc;
     Boolean visited;
-    ArrayList<Integer> visitedValues;
-    int currentValue;
+   // ArrayList<Integer> visitedValues;
+    Integer firstValue;
 
 
 
@@ -22,7 +22,8 @@ public class CellContainer {
         this.xLoc = xLoc;
         this.yLoc = yLoc;
         this.visited = false;
-        this.visitedValues = new ArrayList<Integer>();
+        firstValue = possibleValues.get(0);
+     //   this.visitedValues = new ArrayList<Integer>();
     }
 
 
@@ -51,17 +52,27 @@ public class CellContainer {
         this.possibleValues = intersect(values,this.possibleValues);
     }
 
-    public ArrayList<Integer> getVisitedValues() {
-        return visitedValues;
+    public int accessAPossibleValue(){
+        Integer result = possibleValues.remove(0);
+        possibleValues.add(result);
+        return result;
     }
 
-    public void setVisitedValues(ArrayList<Integer> visitedValues) {
-        this.visitedValues = visitedValues;
+    public boolean loopedOverAlready(){
+        return firstValue.equals(possibleValues.get(0));
     }
 
-    public void addVisitedValues(ArrayList<Integer> values){
-        this.visitedValues = intersect(values,this.visitedValues);
-    }
+//    public ArrayList<Integer> getVisitedValues() {
+//        return visitedValues;
+//    }
+//
+//    public void setVisitedValues(ArrayList<Integer> visitedValues) {
+//        this.visitedValues = visitedValues;
+//    }
+//
+//    public void addVisitedValues(ArrayList<Integer> values){
+//        this.visitedValues = intersect(values,this.visitedValues);
+//    }
 
     private ArrayList<Integer> intersect (ArrayList<Integer> list1, ArrayList<Integer> list2){
         ArrayList<Integer> list = new ArrayList<>();

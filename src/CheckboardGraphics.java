@@ -29,11 +29,7 @@ public class CheckboardGraphics extends GCompound{
 
                 double xPos = j*CELL_LENGTH;
                 double yPos = i*CELL_LENGTH;
-
                 add(singleCell, xPos, yPos);
-
-
-
             }
 
         }

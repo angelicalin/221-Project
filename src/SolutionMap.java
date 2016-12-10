@@ -9,9 +9,9 @@ import java.util.Map;
 public class SolutionMap {
 
     /*
-    This hashmap tracks the location of each treenode.
+    This hashmap tracks the location of each Empty Cell.
      */
-    private HashMap<int[], CellContainer> nodesHolder;
+    private HashMap<Integer, CellContainer> nodesHolder;
 
     public SolutionMap(){
 
@@ -20,9 +20,9 @@ public class SolutionMap {
     }
 
 
-    public void addNodes(ArrayList<Integer> integerArrayList, int xLoc, int yLoc){
+    public void addNodes(ArrayList<Integer> integerArrayList, int rowIndex, int columnIndex){
 
-        int[] loc =  new int []{xLoc,yLoc};
+        Integer loc = rowIndex*100+columnIndex;
 
         if (nodesHolder.containsKey(loc)){
             CellContainer cellToChange = nodesHolder.get(loc);
@@ -30,27 +30,24 @@ public class SolutionMap {
             nodesHolder.put(loc,cellToChange);
         }
         else {
-            CellContainer newCell = new CellContainer(integerArrayList, xLoc, yLoc);
+            CellContainer newCell = new CellContainer(integerArrayList, rowIndex, columnIndex);
             nodesHolder.put(loc, newCell);
             System.out.println("oh");
         }
 
     }
-    public boolean contain(int[] loc){
-        if (nodesHolder.containsKey(loc)){
-            return true;
-        } else {
-            return false;
-        }
+    public boolean contain(Integer loc){
+        return nodesHolder.containsKey(loc);
     }
 
 
     public CellContainer getNodeAt (int xLoc, int yLoc){
-        return nodesHolder.get(new int[]{xLoc,yLoc});
+
+        return nodesHolder.get(xLoc*100+yLoc);
     }
 
     public void traverseTree(){
-        for (Map.Entry<int[], CellContainer> entry: nodesHolder.entrySet()){
+        for (Map.Entry<Integer, CellContainer> entry: nodesHolder.entrySet()){
            // String toPrint = "Level" + entry.getKey()[0]+","+entry.getKey()[1]+" {"+entry.getValue().getValue()+"}";
            // System.out.println(toPrint);
         }
