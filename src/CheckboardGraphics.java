@@ -17,6 +17,7 @@ public class CheckboardGraphics extends GCompound{
     private HashMap<Integer, SingleCellGraphics> cellGraphicsMap = new HashMap<>();
 
 
+
     public CheckboardGraphics(int [][] cell_values)  {
 
         for (int i = 0; i < ROW_NUM; i++) {
