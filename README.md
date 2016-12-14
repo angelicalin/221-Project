@@ -8,3 +8,6 @@
 
    The program will first print the possible values for each emptcell. Then loops over the empty cells, and fill in the
    final solution. After it finishes solving, it will print "Solving Complete"
+2. It stucked?
+   
+   Because the solver uses random shuffle, there is a possibility that it does not always get a solution. If such      thing happens, please restart the program. 
