@@ -14,8 +14,8 @@ public class GameSolver {
     HashMap<Integer, SolutionCell> columnSumsMap;
     //ArrayList<SolutionCell> columnSums = new ArrayList<>();
     int[][] currentSolution;
-    final int ROW_NUM = 14;
-    final int COLUMN_NUM = 7;
+    int ROW_NUM;
+    int COLUMN_NUM;
     //    int[]  currentLocation;
     CheckboardGraphics checkboardGraphics;
 
@@ -27,6 +27,8 @@ public class GameSolver {
         currentSolution = new int[cell_values.length][cell_values[0].length];
         rowSumsMap = new HashMap<>();
         columnSumsMap = new HashMap<>();
+        this.ROW_NUM = currentSolution.length;
+        this.COLUMN_NUM = currentSolution[0].length;
         //   currentLocation = new int[]{2,1};
         this.checkboardGraphics = checkboardGraphics;
     }
