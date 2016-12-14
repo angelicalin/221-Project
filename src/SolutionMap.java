@@ -3,7 +3,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Created by angelica on 11/26/16.
+ * This class constructs a map. The keys are the location of cells, and the values are the cell containers.
  */
 
 public class SolutionMap {
@@ -13,16 +13,15 @@ public class SolutionMap {
      */
     private HashMap<Integer, CellContainer> nodesHolder;
 
-    public HashMap<Integer, CellContainer> getNodesHolder() {
-        return nodesHolder;
-    }
-
     public SolutionMap(){
 
         nodesHolder = new HashMap<>(49);
 
     }
 
+    public HashMap<Integer, CellContainer> getNodesHolder() {
+        return nodesHolder;
+    }
 
     public void addNodes(ArrayList<Integer> integerArrayList, int rowIndex, int columnIndex){
 
