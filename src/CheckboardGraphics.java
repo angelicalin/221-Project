@@ -12,8 +12,8 @@ public class CheckboardGraphics extends GCompound{
     private static final double BOARD_HEIGHT = 350.0;
     private static final double CELL_LENGTH = 50.0;
   //  private static final int row_num_cells = 7;
-  final int ROW_NUM = 4;
-    final int COLUMN_NUM = 5;
+    final int ROW_NUM = 7;
+    final int COLUMN_NUM = 7;
     private HashMap<Integer, SingleCellGraphics> cellGraphicsMap = new HashMap<>();
 
 

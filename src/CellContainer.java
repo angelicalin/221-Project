@@ -9,7 +9,7 @@ public class CellContainer {
     int xLoc;
     int yLoc;
     Boolean visited;
-
+    int visitNum = 0;
    // ArrayList<Integer> visitedValues;
     Integer firstValue;
 
@@ -57,6 +57,11 @@ public class CellContainer {
     public int accessAPossibleValue(){
         Integer result = possibleValues.remove(0);
         possibleValues.add(result);
+        visitNum++;
+        if (visitNum>10){
+            Collections.shuffle(possibleValues);
+            this.firstValue = possibleValues.get(0);
+        }
         return result;
     }
 

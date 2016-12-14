@@ -9,6 +9,7 @@ public class SolutionCell {
     boolean isRowSum = false;
     int numToAdd = 1;
 
+
     public SolutionCell(int x, int y, int value, boolean isRowSum){
         this.value = value;
         this.x=x;
