@@ -1,5 +1,5 @@
 /**
- * Created by angelica on 11/16/16.
+ * This class stores information for each cell: x location, y location, number in the cell and if this is a row sum
  */
 public class SolutionCell {
 

@@ -1,5 +1,5 @@
 /**
- * Created by Leqi on 11/16/16.
+ * This game draws check board for the game and add in all single cells
  */
 
 import acm.graphics.GCompound;
@@ -41,12 +41,6 @@ public class CheckboardGraphics extends GCompound{
 
 
     }
-    public void changeDisplayNum(int loc, Integer newNum){
-        SingleCellGraphics singleCellGraphics = cellGraphicsMap.get(loc);
-        singleCellGraphics.setNewNum(newNum);
-    }
-
-
 
     public static double getBoardWidth() {
         return BOARD_WIDTH;
@@ -54,5 +48,17 @@ public class CheckboardGraphics extends GCompound{
 
     public static double getBoardHeight() {
         return BOARD_HEIGHT;
+    }
+
+    /**
+     * change the number displayed in one cell
+     * @param loc
+     * @param newNum
+     */
+
+
+    public void changeDisplayNum(int loc, Integer newNum){
+        SingleCellGraphics singleCellGraphics = cellGraphicsMap.get(loc);
+        singleCellGraphics.setNewNum(newNum);
     }
 }

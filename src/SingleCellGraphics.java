@@ -6,7 +6,7 @@ import acm.graphics.GRect;
 import java.awt.*;
 
 /**
- * Created by Leqi on 11/16/16.
+ * This class draws a single cell in the game
  */
 public class SingleCellGraphics extends GCompound{
     int valueUp;

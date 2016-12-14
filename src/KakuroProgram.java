@@ -2,7 +2,7 @@
 import acm.program.GraphicsProgram;
 
 /**
- * Created by Leqi on 11/16/16.
+ * This class runs both the Kakuro program visualization and the solution.
  */
 public class KakuroProgram extends GraphicsProgram {
     private final int CANVAS_WIDTH = 500;

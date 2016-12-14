@@ -1,12 +1,12 @@
-import javafx.scene.control.Cell;
-
 import java.util.*;
 
 /**
- * Created by angelica on 11/20/16.
+ * This class solves the Kakuro game
  */
 public class GameSolver {
 
+    final int ROW_NUM = 8;
+    final int COLUMN_NUM = 5;
     int [][] cell_values;
     SolutionMap solutionMap;
     //ArrayList<SolutionCell> rowSums = new ArrayList<>();
@@ -14,8 +14,6 @@ public class GameSolver {
     //HashMap<Integer,SolutionCell> columnSumsMap;
     // ArrayList<SolutionCell> columnSums = new ArrayList<>();
     int [][] currentSolution;
-    final int ROW_NUM = 8;
-    final int COLUMN_NUM = 5;
 //    int[]  currentLocation;
     CheckboardGraphics checkboardGraphics;
 
@@ -52,6 +50,10 @@ public class GameSolver {
         }
         solveEmptyCells();
     }
+
+    /**
+     * This method loops over only the empty cells and add the possible values of each empty cells to the solution map
+     */
 
     private void loopOverEmptyCells() {
         for (Map.Entry<Integer, SolutionCell> entry : rowSumsMap.entrySet()) {
@@ -150,12 +152,27 @@ public class GameSolver {
         }
         return result;
     }
+
+    /**
+     * combine two lists and return their union
+     * @param list1
+     * @param list2
+     * @return
+     */
+
     private ArrayList<Integer> union (ArrayList<Integer> list1, ArrayList<Integer> list2){
         Set<Integer> set = new HashSet<>();
         set.addAll(list1);
         set.addAll(list2);
         return new ArrayList<>(set);
     }
+
+
+    /**
+     * check if the array has unique values
+     * @param partition
+     * @return
+     */
 
     private boolean checkUniqueArray(ArrayList<Integer> partition){
         boolean unique = true;
@@ -166,6 +183,11 @@ public class GameSolver {
         }
         return unique;
     }
+
+
+    /**
+     * solve the empty cells by filling in their possible values and checking if they add up to their row sums and column sums
+     */
 
 
     private void solveEmptyCells() {
@@ -211,6 +233,12 @@ public class GameSolver {
     }
 
 
+    /**
+     * update the current location horizontally
+     * @param currentLocation
+     * @return
+     */
+
 
     private int[] updateCurrentLocationHorizontally(int[] currentLocation){
         currentLocation[1] = currentLocation[1]+1;
@@ -221,10 +249,23 @@ public class GameSolver {
         return currentLocation;
     }
 
+    /**
+     * make current location jump back to the beginning of the row sum
+     * @param rowSumColIndex
+     * @param currentLocation
+     * @return
+     */
+
     private int[] goBackBeginningOfRowSum(int rowSumColIndex, int[]currentLocation){
         currentLocation[1] = rowSumColIndex+1;
         return currentLocation;
     }
+
+    /**
+     * find the row sum that corresponds to the current empty cell
+     * @param loc
+     * @return
+     */
 
     private SolutionCell findCorrespondingRowSum(int[] loc) {
         int copyrow = loc[0];
@@ -234,6 +275,7 @@ public class GameSolver {
         }
         return rowSumsMap.get(copyrow*100+copycolumn);
     }
+
     /**
      * check if the cells add up to their row sum
      * @param currentRowSumCell
