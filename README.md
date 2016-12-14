@@ -16,18 +16,20 @@
 
 3. Want to solve a different puzzle input?
    
-   Please open KakuroProgram class, where you can find the board input. Each row of the board has two rows in this 2D array, First one is for any row sum, and second one is for any column sum. For empty cells waiting to be solved, please use 0, and for unfillable cells, please use -1. For example, ![alt tag](http://www.anypuzzle.com/puzzles/logic/Kakuro/Easy%20Kakuro.png), this will have the responding 2D array as following:
-               { {-1,-1,-1,-1,-1,-1,-1},
-                {-1,3,4,-1,-1,16,3},
-                {3,0,0,-1,4,0,0},
-                {-1,0,0,22,-1,0,0},
-                {9,0,0,0,7,0,0},
-                {-1,0,0,0,17,0,0},
-                {-1,-1,24,0,0,0,-1},
-                {-1,-1,22,0,0,0,-1},
-                {-1,23,0,0,0,-1,-1},
-                {-1,17,0,0,0,16,12},
-                {16,0,0,12,0,0,0},
-                {-1,0,0,-1,0,0,0},
-                {17,0,0,-1,17,0,0},
-                {-1,0,0,-1,-1,0,0}}
+   Please open KakuroProgram class, where you can find the board input. Each row of the board has two rows in this 2D array, First one is for any row sum, and second one is for any column sum. For empty cells waiting to be solved, please use 0, and for unfillable cells, please use -1. For example,   
+   ![alt tag](http://www.anypuzzle.com/puzzles/logic/Kakuro/Easy%20Kakuro.png)    
+   this will have the responding 2D array as following:   
+               { {-1,-1,-1,-1,-1,-1,-1},  
+                {-1,3,4,-1,-1,16,3},  
+                {3,0,0,-1,4,0,0},  
+                {-1,0,0,22,-1,0,0},  
+                {9,0,0,0,7,0,0},  
+                {-1,0,0,0,17,0,0},  
+                {-1,-1,24,0,0,0,-1},  
+                {-1,-1,22,0,0,0,-1},  
+                {-1,23,0,0,0,-1,-1},  
+                {-1,17,0,0,0,16,12},  
+                {16,0,0,12,0,0,0},  
+                {-1,0,0,-1,0,0,0},  
+                {17,0,0,-1,17,0,0},  
+                {-1,0,0,-1,-1,0,0}}  
