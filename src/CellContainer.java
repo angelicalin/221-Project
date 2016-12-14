@@ -58,7 +58,7 @@ public class CellContainer {
         Integer result = possibleValues.remove(0);
         possibleValues.add(result);
         visitNum++;
-        if (visitNum>10){
+        if (visitNum>20){
             Collections.shuffle(possibleValues);
             this.firstValue = possibleValues.get(0);
         }

@@ -278,7 +278,7 @@ public class GameSolver {
             }
             else{
                 currentLocation = updateCurrentLocationHorizontally(currentLocation);
-                System.out.println("Out Loop"+currentLocation[0]*100+"g"+currentLocation[1]);
+            //    System.out.println("Out Loop"+currentLocation[0]*100+"g"+currentLocation[1]);
             }
          //   System.out.println(currentLocation[0]*100 + currentLocation[1]);
         }
@@ -299,11 +299,6 @@ public class GameSolver {
         if (!(currentLocation[1]<COLUMN_NUM)){
             currentLocation[0]+=2;
             currentLocation[1]=1;
-    private int[] updateCurrentLocationHorizontally(int[] currentLocation) {
-        currentLocation[1] = currentLocation[1] + 1;
-        if (!(currentLocation[1] < COLUMN_NUM)) {
-            currentLocation[0] += 2;
-            currentLocation[1] = 1;
         }
         return currentLocation;
     }
@@ -369,7 +364,7 @@ public class GameSolver {
             addedValue.add(currentSolution[rowIndex][colIndex]);
 
         }
-        System.out.println(cellValueRowSum);
+      //  System.out.println(cellValueRowSum);
         return (cellValueRowSum == currentRowSumCell.getValue());
 
     }
