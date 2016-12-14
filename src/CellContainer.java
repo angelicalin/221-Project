@@ -1,6 +1,4 @@
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Created by angelica on 11/25/16.
@@ -23,6 +21,7 @@ public class CellContainer {
         this.xLoc = xLoc;
         this.yLoc = yLoc;
         this.visited = false;
+        Collections.shuffle(possibleValues);
         firstValue = possibleValues.get(0);
      //   this.visitedValues = new ArrayList<Integer>();
     }
@@ -51,6 +50,8 @@ public class CellContainer {
 
     public void addPossibleValues(ArrayList<Integer> values){
         this.possibleValues = intersect(values,this.possibleValues);
+        Collections.shuffle(possibleValues);
+        this.firstValue = possibleValues.get(0);
     }
 
     public int accessAPossibleValue(){
