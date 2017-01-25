@@ -1,4 +1,5 @@
 This is a final project created for Algorithm Design course.
+
 Author: Haihan (Angelica) Lin, Leqi (Lynn) Zhao
 
 1. How to run this program?
