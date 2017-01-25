@@ -1,3 +1,6 @@
+This is a final project created for Algorithm Design course.
+Author: Haihan (Angelica) Lin, Leqi (Lynn) Zhao
+
 1. How to run this program?
 
    Please go to the KakuroProgram class and run it. It will present you a visualization of check board and the solution.
